@@ -24,9 +24,9 @@
     },
     data() {
       return {
-        mapCenter: [ 4.5989, 52.4655 ],
+        mapCenter: [ 4.604, 52.467 ],
         mapToken: process.env.VUE_APP_MAPBOX_TOKEN,
-        mapZoom: 15.5,
+        mapZoom: 14.5,
       };
     },
     created() {
