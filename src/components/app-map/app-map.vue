@@ -17,14 +17,8 @@
           :key="properties.loc_id"
           :coordinates="geometry.coordinates"
           color="red"
-        >
-          <mgl-popup :offset="[ 0, -23 ]">
-            <div>
-              <h3 class="text-subtitle-2">{{ properties.loc_id }}</h3>
-              <p class="text-body-2">meanhead: {{ properties.meanhead }}</p>
-            </div>
-          </mgl-popup>
-        </mgl-marker>
+          @click="onClickMarker(properties.loc_id)"
+        />
 
       </template>
     </mgl-map>
@@ -32,8 +26,8 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-  import { MglMap, MglMarker, MglNavigationControl, MglPopup } from 'vue-mapbox';
+  import { mapActions, mapGetters } from 'vuex';
+  import { MglMap, MglMarker, MglNavigationControl } from 'vue-mapbox';
   import Mapbox from 'mapbox-gl';
   import { featureCollection } from '@turf/helpers';
   import bbox from '@turf/bbox';
@@ -43,7 +37,6 @@
       MglMap,
       MglMarker,
       MglNavigationControl,
-      MglPopup,
     },
     data() {
       return {
@@ -60,9 +53,13 @@
       ...mapGetters('locations', [ 'locations' ]),
     },
     methods: {
+      ...mapActions('locations', [ 'setActiveLocation' ]),
       onMapCreated({ map }) {
         this.$root.map = map;
         this.shouldZoomIn = true;
+      },
+      onClickMarker(id) {
+        this.setActiveLocation({ id });
       },
     },
     watch: {
