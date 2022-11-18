@@ -1,41 +1,32 @@
 <template>
   <div class="app-map">
-    <mgl-map
-      mapStyle="mapbox://styles/mapbox/streets-v11"
-      :accessToken="mapToken"
+    <v-mapbox
+      map-style="mapbox://styles/mapbox/streets-v11"
+      :access-token="mapToken"
       :center="mapCenter"
       :zoom="mapZoom"
-      @load="onMapCreated"
     >
       <!-- Controls -->
-      <mgl-navigation-control position="bottom-right" />
-    </mgl-map>
+      <v-mapbox-navigation-control />
+
+      <!-- Layers -->
+      <locations-layer />
+    </v-mapbox>
   </div>
 </template>
 
 <script>
-  import { MglMap, MglNavigationControl } from 'vue-mapbox';
-  import Mapbox from 'mapbox-gl';
+  import LocationsLayer from '@/components/locations-layer/locations-layer';
 
   export default {
-    components: {
-      MglMap,
-      MglNavigationControl,
-    },
+    components: { LocationsLayer },
     data() {
       return {
         mapCenter: [ 4.604, 52.467 ],
+        mapLoaded: false,
         mapToken: process.env.VUE_APP_MAPBOX_TOKEN,
-        mapZoom: 14.5,
+        mapZoom: 12.5,
       };
-    },
-    created() {
-      this.mapbox = Mapbox;
-    },
-    methods: {
-      onMapCreated({ map }) {
-        this.$root.map = map;
-      },
     },
   };
 </script>
