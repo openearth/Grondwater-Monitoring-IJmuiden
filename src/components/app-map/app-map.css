@@ -1,24 +1,16 @@
-.app-map {
-  width: 100%;
-  height: 100%;
-}
-
-.app-map__map {
+.app-map,
+.mapboxgl-map {
   width: 100%;
   height: 100%;
 }
 
 .app-map .mapboxgl-popup-content {
-  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, .3);
   padding: 6px 10px;
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, .3);
 }
 
 .app-map .mapboxgl-popup-content dl {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, max-content);
   column-gap: 8px;
-}
-
-.app-map .app-map-popup-content dl dt {
-  font-weight: bold;
 }
