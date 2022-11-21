@@ -59,7 +59,7 @@
       };
     },
     computed: {
-      ...mapGetters('locations', ['timeseries']),
+      ...mapGetters('locations', [ 'timeseries' ]),
       baseOptions() {
         return {
           dataZoom: [
