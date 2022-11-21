@@ -1,8 +1,11 @@
 <template>
   <div class="pa-4 d-flex flex-column">
-    <active-location v-if="activeLocation" />
+    <location-details v-if="activeLocation" />
+    <level-select v-if="activeLocation" />
+    <level-details v-if="activeLevel" />
+    <area-chart v-if="activeLocation" />
     <v-alert
-      v-else
+      v-if="!activeLocation && !activeLevel"
       dense
       outlined
       type="info"
@@ -15,15 +18,23 @@
 <script>
   import { mapActions, mapGetters } from 'vuex';
 
-  import activeLocation from '@/components/active-location/active-location';
+  import AreaChart from '@/components/area-chart/area-chart';
+  import LevelDetails from '@/components/level-details/level-details';
+  import LevelSelect from '@/components/level-select/level-select';
+  import LocationDetails from '@/components/location-details/location-details';
 
   export default {
-    components: { activeLocation },
+    components: {
+      AreaChart,
+      LevelDetails,
+      LevelSelect,
+      LocationDetails,
+    },
     created() {
       this.getLocations();
     },
     computed: {
-      ...mapGetters('locations', [ 'activeLocation' ]),
+      ...mapGetters('locations', [ 'activeLevel', 'activeLocation' ]),
     },
     methods: {
       ...mapActions('locations', [ 'getLocations' ]),

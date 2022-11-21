@@ -37,7 +37,7 @@
       ...mapGetters('locations', [ 'locations' ]),
     },
     methods: {
-      ...mapActions('locations', [ 'setActiveLocation' ]),
+      ...mapActions('locations', [ 'setActiveLocation', 'setLocationTimeseries' ]),
       addListeners() {
         this.map.on('click', 'markers', this.onClickMarker);
         this.map.on('mouseenter', 'markers', this.onMouseEnter);
@@ -51,6 +51,7 @@
       onClickMarker(event) {
         const { loc_id } = event.features[0].properties;
         this.setActiveLocation({ id: loc_id });
+        this.setLocationTimeseries({ id: loc_id });
       },
       onMouseEnter(event) {
         const { features, lngLat } = event;
