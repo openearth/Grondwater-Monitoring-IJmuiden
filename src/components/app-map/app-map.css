@@ -4,6 +4,10 @@
   height: 100%;
 }
 
+.app-map .mapboxgl-popup {
+  max-width: none !important;
+}
+
 .app-map .mapboxgl-popup-content {
   padding: 6px 10px;
   box-shadow: 0 2px 5px 1px rgba(0, 0, 0, .3);
