@@ -9,6 +9,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   import { use } from 'echarts/core';
   import { CanvasRenderer } from 'echarts/renderers';
   import { LineChart } from 'echarts/charts';
@@ -58,6 +59,7 @@
       };
     },
     computed: {
+      ...mapGetters('locations', ['timeseries']),
       baseOptions() {
         return {
           dataZoom: [
@@ -92,14 +94,17 @@
           // },
         };
       },
-      fakeData() {
-        return data;
+      dates() {
+        return this.timeseries.map((item) => item.date);
+      },
+      values() {
+        return this.timeseries.map((item) => item.depth);
       },
       xAxis() {
         return {
           type: 'category',
           boundaryGap: false,
-          data: dates,
+          data: this.dates,
         };
       },
       yAxis() {
@@ -125,12 +130,12 @@
             symbol: 'none',
             sampling: 'lttb',
             itemStyle: {
-              color: 'rgb(0, 0, 0)',
+              color: '#008fc5',
             },
             areaStyle: {
-              color: 'red',
+              color: 'rgba(0, 143, 197, 0.3)',
             },
-            data: this.fakeData,
+            data: this.values,
           },
         ];
       },

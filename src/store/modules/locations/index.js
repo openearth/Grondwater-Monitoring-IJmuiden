@@ -1,5 +1,6 @@
 import getLocationsData from '@/lib/get-locations-data';
 import getLocationTimeseries from '@/lib/get-location-timeseries';
+import mapChartData from '@/lib/map-chart-data';
 
 const initialState = () => ({
   activeLevel: null,
@@ -62,7 +63,10 @@ export default {
     },
     setTimeseries({ commit }, { id }) {
       return getLocationTimeseries({ id })
-        .then((timeseries) => commit('SET_TIMESERIES', { timeseries }))
+        .then((data) => {
+          const timeseries = mapChartData(data);
+          commit('SET_TIMESERIES', { timeseries });
+        })
         .catch(err => Promise.reject(err));
     },
     setTimeseriesModalOpen({ commit }, { open }) {

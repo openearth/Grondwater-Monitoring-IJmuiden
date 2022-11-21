@@ -1,5 +1,7 @@
 import geoServerUrl from './geoserver-url';
 
+import mockData from '../../public/mock/timeseries.json';
+
 export default async function getLocationTimeseries ({ id }) {
   const url = await geoServerUrl({
     url: process.env.VUE_APP_GEOSERVER_BASE_URL + '/wps',
@@ -21,9 +23,7 @@ export default async function getLocationTimeseries ({ id }) {
         return Promise.reject(value.errMsg);
       }
 
-      console.log(value);
-
-      return value ? value : null;
+      return value ? mockData : null;
     })
     .catch(err => Promise.reject(err));
 }
