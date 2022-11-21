@@ -25,7 +25,7 @@
             </td>
           </tr>
           <tr>
-            <td>Boorgatmeting (foto)</td>
+            <td>Locatie (foto)</td>
             <td>
               <a :href="locationPhoto" target="_blank">{{ id }}.jpg</a>
               <v-icon small>mdi-open-in-new</v-icon>
