@@ -3,6 +3,7 @@
     class="timeseries-dialog"
     v-model="showDialog"
     max-width="1600"
+    @click:outside="onClick"
   >
     <v-card>
       <v-btn
