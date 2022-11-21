@@ -24,6 +24,8 @@
 
     <welcome-dialog />
 
+    <timeseries-dialog />
+
     <toast-message
       :show="Boolean(toastMessage)"
       :message="toastMessage"
@@ -36,6 +38,7 @@
 
   import AppMap from '@/components/app-map/app-map';
   import AppSidebar from '@/components/app-sidebar/app-sidebar';
+  import TimeseriesDialog from '@/components/timeseries-dialog/timeseries-dialog';
   import ToastMessage from '@/components/toast-message/toast-message';
   import WelcomeDialog from '@/components/welcome-dialog/welcome-dialog';
 
@@ -43,6 +46,7 @@
     components: {
       AppMap,
       AppSidebar,
+      TimeseriesDialog,
       ToastMessage,
       WelcomeDialog,
     },

@@ -3,7 +3,17 @@
     <location-details v-if="activeLocation" />
     <level-select v-if="activeLocation" />
     <level-details v-if="activeLevel" />
-    <area-chart v-if="activeLocation" />
+
+    <v-divider v-if="timeseries.length" class="my-8" />
+    <v-btn
+      v-if="timeseries.length"
+      color="primary"
+      depressed
+      @click="onClick"
+    >
+      Bekijk timeseries
+    </v-btn>
+
     <v-alert
       v-if="!activeLocation && !activeLevel"
       dense
@@ -18,14 +28,12 @@
 <script>
   import { mapActions, mapGetters } from 'vuex';
 
-  import AreaChart from '@/components/area-chart/area-chart';
   import LevelDetails from '@/components/level-details/level-details';
   import LevelSelect from '@/components/level-select/level-select';
   import LocationDetails from '@/components/location-details/location-details';
 
   export default {
     components: {
-      AreaChart,
       LevelDetails,
       LevelSelect,
       LocationDetails,
@@ -34,10 +42,13 @@
       this.getLocations();
     },
     computed: {
-      ...mapGetters('locations', [ 'activeLevel', 'activeLocation' ]),
+      ...mapGetters('locations', [ 'activeLevel', 'activeLocation', 'timeseries' ]),
     },
     methods: {
-      ...mapActions('locations', [ 'getLocations' ]),
+      ...mapActions('locations', [ 'getLocations', 'setTimeseriesModalOpen' ]),
+      onClick() {
+        this.setTimeseriesModalOpen({ open: true });
+      },
     },
   };
 </script>

@@ -6,6 +6,7 @@ const initialState = () => ({
   activeLocation: null,
   locations: [],
   timeseries: [],
+  timeseriesModalOpen: false,
 });
 
 export default {
@@ -19,6 +20,8 @@ export default {
     activeLevel: state => state.activeLevel,
     activeLocation: state => state.activeLocation,
     locations: state => state.locations,
+    timeseries: state => state.timeseries,
+    timeseriesModalOpen: state => state.timeseriesModalOpen,
   },
 
   mutations: {
@@ -31,8 +34,11 @@ export default {
     SET_ACTIVE_LOCATION(state, { id }) {
       state.activeLocation = state.locations.find(location => location.properties.loc_id === id);
     },
-    SET_LOCATION_TIMESERIES(state, { timeseries }) {
+    SET_TIMESERIES(state, { timeseries }) {
       state.timeseries = timeseries;
+    },
+    SET_TIMESERIES_MODAL_OPEN(state, { open }) {
+      state.timeseriesModalOpen = open;
     },
     SET_LOCATIONS(state, { locations }) {
       state.locations = locations;
@@ -54,10 +60,13 @@ export default {
     setActiveLocation({ commit }, { id }) {
       commit('SET_ACTIVE_LOCATION', { id });
     },
-    setLocationTimeseries({ commit }, { id }) {
+    setTimeseries({ commit }, { id }) {
       return getLocationTimeseries({ id })
-        .then((timeseries) => commit('SET_LOCATION_TIMESERIES', { timeseries }))
+        .then((timeseries) => commit('SET_TIMESERIES', { timeseries }))
         .catch(err => Promise.reject(err));
+    },
+    setTimeseriesModalOpen({ commit }, { open }) {
+      commit('SET_TIMESERIES_MODAL_OPEN', { open });
     },
   },
 };

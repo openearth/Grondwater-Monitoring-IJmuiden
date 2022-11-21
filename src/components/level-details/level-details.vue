@@ -1,5 +1,6 @@
 <template>
   <div class="level-details">
+    <v-divider class="my-8" />
     <h3 class="text-h6">Details peilfilter {{ activeLevel.id }}</h3>
 
     <v-simple-table>

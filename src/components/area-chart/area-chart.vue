@@ -1,6 +1,5 @@
 <template>
   <app-chart class="area-chart">
-    <h3 class="text-h6">Timeseries at [ID]</h3>
     <v-chart
       class="scatter-chart"
       :init-options="initOptions"
@@ -55,7 +54,7 @@
     },
     data() {
       return {
-        initOptions: { height: '600px', width:'452px' },
+        initOptions: { height: '500px' },
       };
     },
     computed: {
@@ -105,6 +104,7 @@
       },
       yAxis() {
         return {
+          name: 'Grondwaterstand cm + NAP',
           type: 'value',
           boundaryGap: [ 0, '100%' ],
         };

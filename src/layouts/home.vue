@@ -20,7 +20,7 @@
       <section>
         <v-parallax src="@/assets/img/header.jpg" height="400" />
       </section>
-      <section>
+      <section class="blue lighten-5">
         <v-container class="py-16">
           <v-row dense justify="center">
             <v-col
@@ -60,17 +60,19 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex';
+
   export default {
     computed: {
       currentYear() {
         return new Date().getFullYear();
       },
     },
+    created() {
+      this.resetLocations();
+    },
+    methods: {
+      ...mapActions('locations', { resetLocations: 'reset' }),
+    },
   };
 </script>
-
-<style>
-  .v-card.v-sheet.v-sheet--outlined.theme--light {
-    border-color: #BBDEFB; /* equal to 'blue lighten-4' modifier classes */
-  }
-</style>
