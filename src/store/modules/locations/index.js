@@ -32,7 +32,7 @@ export default {
   actions: {
     getLocations({ commit }) {
       return getLocationsData()
-        .then((locations) => commit('SET_LOCATIONS', { locations }))
+        .then(({ features }) => commit('SET_LOCATIONS', { locations: features }))
         .catch(err => Promise.reject(err));
     },
     setActiveLocation({ commit }, { id }) {

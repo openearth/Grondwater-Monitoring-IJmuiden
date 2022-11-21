@@ -14,15 +14,7 @@ export default async function getLocationsData () {
     .then(string => {
       const document = new window.DOMParser().parseFromString(string, 'text/xml');
       const element = document.getElementsByTagName('wps:ComplexData');
-      const rawData = element[0].childNodes[0].nodeValue;
-      // data is invalid json. We need to fix it, for now.
-      const validData = rawData
-        .replace(/'/g, '"')
-        .replace(/\(/g, '')
-        .replace(/,\),/g, ',')
-        .replace(/,\)/g, '');
-
-      const value = JSON.parse(validData);
+      const value = JSON.parse(element[0].innerHTML);
 
       if (value.errMsg) {
         return Promise.reject(value.errMsg);
