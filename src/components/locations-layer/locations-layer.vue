@@ -12,6 +12,13 @@
     'circle-stroke-color': '#ff0000',
   };
 
+  const SELECTED_MARKER_STYLES = {
+    'circle-color': '#fff',
+    'circle-radius': 5,
+    'circle-stroke-width': 5,
+    'circle-stroke-color': '#0000ff',
+  };
+
   export default {
     name: 'locations-layer',
     render() {
@@ -54,6 +61,9 @@
         this.resetLevel();
         this.setActiveLocation({ id: loc_id });
         this.setPanelIsCollapsed({ isCollapsed: false });
+
+        // Selected location layer need to be separate component, like this one.
+        this.showSelectedLocation({});
       },
       onMouseEnter(event) {
         const { features, lngLat } = event;
@@ -86,7 +96,8 @@
         this.popup.remove();
       },
       populateMap() {
-        this.map.addSource('markers', {
+        // Create source from locations.
+        this.map.addSource('locations', {
           type: 'geojson',
           data: featureCollection(
             this.locations.map((location) => ({
@@ -97,12 +108,29 @@
           ),
         });
 
-        // Add a layer showing the places.
+        // Create an empty source for the selected location.
+        this.map.addSource('selected-location', {
+          type: 'geojson',
+          data: {
+            type: 'FeatureCollection',
+            features: [],
+          },
+        });
+
+        // Add a layer showing the locations.
         this.map.addLayer({
-          id: 'markers',
+          id: 'locations',
           type: 'circle',
-          source: 'markers',
+          source: 'locations',
           paint: MARKER_STYLES,
+        });
+
+        // Add a layer showing the selected location.
+        this.map.addLayer({
+          id: 'selected-location',
+          type: 'circle',
+          source: 'selected-location',
+          paint: SELECTED_MARKER_STYLES,
         });
       },
       removeListeners() {
