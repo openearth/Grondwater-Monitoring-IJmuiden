@@ -1,6 +1,7 @@
 import cookie from '@/lib/cookie';
 
 const initialState = () => ({
+  panelIsCollapsed: true,
   toastMessage: null,
 });
 
@@ -13,6 +14,7 @@ export default {
   },
 
   getters: {
+    panelIsCollapsed: state => state.panelIsCollapsed,
     toastMessage: state => state.toastMessage,
     termsAndConditionsAccepted: state => state.termsAndConditionsAccepted,
   },
@@ -23,6 +25,9 @@ export default {
     },
     RESET_TOAST_MESSAGE(state) {
       state.toastMessage = null;
+    },
+    SET_PANEL_IS_COLLAPSED(state, { isCollapsed }) {
+      state.panelIsCollapsed = isCollapsed;
     },
     SET_TERMS_AND_CONDITIONS_ACCEPTED(state, { accepted }) {
       state.termsAndConditionsAccepted = accepted;
@@ -38,6 +43,9 @@ export default {
     },
     resetToastMessage({ commit }) {
       commit('RESET_TOAST_MESSAGE');
+    },
+    setPanelIsCollapsed({ commit }, { isCollapsed }) {
+      commit('SET_PANEL_IS_COLLAPSED', { isCollapsed });
     },
     setTermsAndConditionsAccepted({ commit }, { accepted }) {
       cookie('gtb_tac_accepted', accepted, 1);

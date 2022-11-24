@@ -1,8 +1,8 @@
 <template>
   <div class="location-details">
-    <h3 class="text-h6">Details meetlocatie</h3>
+    <h3 class="location-details__title text-h6">Details meetlocatie</h3>
 
-    <v-simple-table>
+    <v-simple-table v-if="activeLocation">
       <template v-slot:default>
         <tbody>
           <tr>
@@ -16,20 +16,6 @@
           <tr>
             <td>Gemiddelde</td>
             <td>{{ meanhead }}</td>
-          </tr>
-          <tr>
-            <td>Boorgatmeting (foto)</td>
-            <td>
-              <a :href="boreholePhoto" target="_blank">{{ id }}.png</a>
-              <v-icon small>mdi-open-in-new</v-icon>
-            </td>
-          </tr>
-          <tr>
-            <td>Locatie (foto)</td>
-            <td>
-              <a :href="locationPhoto" target="_blank">{{ id }}.jpg</a>
-              <v-icon small>mdi-open-in-new</v-icon>
-            </td>
           </tr>
         </tbody>
       </template>
@@ -49,17 +35,11 @@
       coordinates() {
         return this.activeLocation.geometry.coordinates;
       },
-      boreholePhoto() {
-        const path = 'https://grondwater-ijmuiden.openearth.nl/static/boorgatmeting';
-        return `${ path }/${ this.id }.png`;
-      },
-      locationPhoto() {
-        const path = 'https://grondwater-ijmuiden.openearth.nl/static/fotos';
-        return `${ path }/${ this.id }.jpg`;
-      },
       meanhead() {
         return this.activeLocation.properties.meanhead;
       },
     },
   };
 </script>
+
+<style src="./location-details.css"></style>

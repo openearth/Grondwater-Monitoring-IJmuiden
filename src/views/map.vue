@@ -1,48 +1,39 @@
 <template>
-  <div class="pa-4 d-flex flex-column">
-    <location-details v-if="activeLocation" />
-    <level-select v-if="activeLocation" />
-    <level-details v-if="activeLevel" />
+  <div class="details d-flex flex-row">
+    <div class="details__column">
+      <location-details />
+      <v-divider class="my-8" />
+      <level-details />
+    </div>
 
-    <v-divider v-if="timeseries.length" class="my-8" />
-    <v-btn
-      v-if="timeseries.length"
-      color="primary"
-      depressed
-      @click="onClick"
-    >
-      Bekijk timeseries
-    </v-btn>
-
-    <v-alert
-      v-if="!activeLocation && !activeLevel"
-      dense
-      outlined
-      type="info"
-    >
-      Selecteer een punt op de kaart voor meer informatie.
-    </v-alert>
+    <div class="details__column">
+      <area-chart v-if="showChart" />
+    </div>
   </div>
 </template>
 
 <script>
   import { mapActions, mapGetters } from 'vuex';
 
+  import AreaChart from '@/components/area-chart/area-chart';
   import LevelDetails from '@/components/level-details/level-details';
-  import LevelSelect from '@/components/level-select/level-select';
   import LocationDetails from '@/components/location-details/location-details';
 
   export default {
     components: {
+      AreaChart,
       LevelDetails,
-      LevelSelect,
       LocationDetails,
     },
     created() {
       this.getLocations();
     },
     computed: {
-      ...mapGetters('locations', [ 'activeLevel', 'activeLocation', 'timeseries' ]),
+      ...mapGetters('level', [ 'timeseries' ]),
+      ...mapGetters('locations', [ 'activeLocation' ]),
+      showChart() {
+        return this.timeseries.length > 0;
+      },
     },
     methods: {
       ...mapActions('locations', [ 'getLocations', 'setTimeseriesModalOpen' ]),
@@ -52,3 +43,27 @@
     },
   };
 </script>
+
+<style>
+  .details {
+    height: 100%;
+    overflow: hidden;
+    padding: 24px 0;
+    gap: 24px;
+  }
+
+  .details__column {
+    display: inline-block;
+    height: 100%;
+    overflow: auto;
+    padding: 0 24px;
+  }
+
+  .details__column:first-child {
+    flex: 0 0 600px;
+  }
+
+  .details__column:last-child {
+    flex: 1 1 auto;
+  }
+</style>

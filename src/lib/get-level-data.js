@@ -1,15 +1,14 @@
 import geoServerUrl from './geoserver-url';
+import mapChartData from '@/lib/map-chart-data';
 
-import mockData from '../../public/mock/timeseries.json';
-
-export default async function getLocationTimeseries ({ id }) {
+export default async function getLevelData ({ id }) {
   const url = await geoServerUrl({
     url: process.env.VUE_APP_GEOSERVER_BASE_URL + '/wps',
     request: 'Execute',
     service: 'wps',
     version: '2.0.0',
     Identifier: 'wps_gettimeseries',
-    datainputs: `locationinfo={"locid": "${ id }"}`,
+    datainputs: `locationinfo={"locid": "${ id }", "parameter": "Divermeting: grondwaterstand"}`,
   });
 
   return fetch(url)
@@ -17,13 +16,18 @@ export default async function getLocationTimeseries ({ id }) {
     .then(string => {
       const document = new window.DOMParser().parseFromString(string, 'text/xml');
       const element = document.getElementsByTagName('wps:ComplexData');
-      const value = element[0].innerHTML;
+      const rawData = JSON.parse(element[0].innerHTML);
+
+      const value = {
+        location: rawData.locationproperties,
+        timeseries: mapChartData(rawData.timeseries),
+      };
 
       if (value.errMsg) {
         return Promise.reject(value.errMsg);
       }
 
-      return value ? mockData : mockData;
+      return value ? value : null;
     })
     .catch(err => Promise.reject(err));
 }

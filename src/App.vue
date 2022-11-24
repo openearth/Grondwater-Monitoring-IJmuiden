@@ -4,8 +4,8 @@
 </template>
 
 <script>
-  import HomeLayout from '@/layouts/home';
-  import MapLayout from '@/layouts/map';
+  import HomeLayout from '@/layouts/home/home';
+  import MapLayout from '@/layouts/map/map';
 
   export default {
     components: {

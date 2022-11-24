@@ -69,9 +69,13 @@
       },
     },
     created() {
+      this.resetApp();
+      this.resetLevel();
       this.resetLocations();
     },
     methods: {
+      ...mapActions('app', { resetApp: 'reset' }),
+      ...mapActions('level', { resetLevel: 'reset' }),
       ...mapActions('locations', { resetLocations: 'reset' }),
     },
   };

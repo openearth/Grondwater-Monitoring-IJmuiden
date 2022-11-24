@@ -16,10 +16,15 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex';
+
   import LocationsLayer from '@/components/locations-layer/locations-layer';
 
   export default {
     components: { LocationsLayer },
+    created() {
+      this.setToastMessage({ text: 'Selecteer een meetlocatie op de kaart voor details.' });
+    },
     data() {
       return {
         mapCenter: [ 4.604, 52.467 ],
@@ -27,6 +32,9 @@
         mapToken: process.env.VUE_APP_MAPBOX_TOKEN,
         mapZoom: 12.5,
       };
+    },
+    methods: {
+      ...mapActions('app', [ 'setToastMessage' ]),
     },
   };
 </script>

@@ -22,7 +22,6 @@
         map: null,
         mapLoaded: false,
         popup: null,
-        shouldZoomIn: false,
       };
     },
     created() {
@@ -37,7 +36,9 @@
       ...mapGetters('locations', [ 'locations' ]),
     },
     methods: {
-      ...mapActions('locations', [ 'setActiveLocation', 'setTimeseries' ]),
+      ...mapActions('app', [ 'setPanelIsCollapsed' ]),
+      ...mapActions('level', { resetLevel: 'reset' }),
+      ...mapActions('locations', [ 'resetActiveLocation', 'setActiveLocation' ]),
       addListeners() {
         this.map.on('click', 'markers', this.onClickMarker);
         this.map.on('mouseenter', 'markers', this.onMouseEnter);
@@ -46,12 +47,13 @@
       deferredMountedTo(map) {
         this.map = map;
         this.mapLoaded = true;
-        this.shouldZoomIn = true;
+        this.zoomToCollection();
       },
       onClickMarker(event) {
         const { loc_id } = event.features[0].properties;
+        this.resetLevel();
         this.setActiveLocation({ id: loc_id });
-        this.setTimeseries({ id: loc_id });
+        this.setPanelIsCollapsed({ isCollapsed: false });
       },
       onMouseEnter(event) {
         const { features, lngLat } = event;
@@ -108,24 +110,25 @@
         this.map.off('mouseenter', 'markers', this.onMouseEnter);
         this.map.off('mouseleave', 'markers', this.onMouseLeave);
       },
+      zoomToCollection() {
+        if (!this.locations.length) {
+          return;
+        }
+
+        const bounds = bbox(featureCollection(
+          this.locations.map(({ geometry }) => ({
+            type: 'Feature', geometry,
+          }))
+        ));
+
+        this.map.fitBounds(bounds, { padding: 150 });
+      },
     },
     watch: {
       mapLoaded(isLoaded) {
         if (isLoaded) {
           this.addListeners();
           this.populateMap();
-        }
-      },
-      shouldZoomIn(shouldZoom) {
-        if (this.locations.length && shouldZoom) {
-          const bounds = bbox(featureCollection(
-            this.locations.map(({ geometry }) => ({
-              type: 'Feature', geometry,
-            }))
-          ));
-
-          this.map.fitBounds(bounds, { padding: 100 });
-          this.shouldZoomIn = false;
         }
       },
     },

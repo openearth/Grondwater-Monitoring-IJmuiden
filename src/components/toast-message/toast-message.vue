@@ -39,7 +39,7 @@
     },
     data() {
       return {
-        duration: 2000,
+        duration: 5000,
       };
     },
     computed: {

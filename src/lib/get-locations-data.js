@@ -20,6 +20,8 @@ export default async function getLocationsData () {
         return Promise.reject(value.errMsg);
       }
 
+      console.log(value);
+
       return value ? value : null;
     })
     .catch(err => Promise.reject(err));
