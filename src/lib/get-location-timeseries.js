@@ -23,7 +23,7 @@ export default async function getLocationTimeseries ({ id }) {
         return Promise.reject(value.errMsg);
       }
 
-      return value ? mockData : [];
+      return value ? mockData : mockData;
     })
     .catch(err => Promise.reject(err));
 }
