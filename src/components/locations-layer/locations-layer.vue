@@ -12,13 +12,6 @@
     'circle-stroke-color': '#ff0000',
   };
 
-  const SELECTED_MARKER_STYLES = {
-    'circle-color': '#fff',
-    'circle-radius': 5,
-    'circle-stroke-width': 5,
-    'circle-stroke-color': '#0000ff',
-  };
-
   export default {
     name: 'locations-layer',
     render() {
@@ -47,9 +40,9 @@
       ...mapActions('level', { resetLevel: 'reset' }),
       ...mapActions('locations', [ 'resetActiveLocation', 'setActiveLocation' ]),
       addListeners() {
-        this.map.on('click', 'markers', this.onClickMarker);
-        this.map.on('mouseenter', 'markers', this.onMouseEnter);
-        this.map.on('mouseleave', 'markers', this.onMouseLeave);
+        this.map.on('click', 'locations', this.onClickMarker);
+        this.map.on('mouseenter', 'locations', this.onMouseEnter);
+        this.map.on('mouseleave', 'locations', this.onMouseLeave);
       },
       deferredMountedTo(map) {
         this.map = map;
@@ -63,7 +56,7 @@
         this.setPanelIsCollapsed({ isCollapsed: false });
 
         // Selected location layer need to be separate component, like this one.
-        this.showSelectedLocation({});
+        // this.showSelectedLocation({});
       },
       onMouseEnter(event) {
         const { features, lngLat } = event;
@@ -108,15 +101,6 @@
           ),
         });
 
-        // Create an empty source for the selected location.
-        this.map.addSource('selected-location', {
-          type: 'geojson',
-          data: {
-            type: 'FeatureCollection',
-            features: [],
-          },
-        });
-
         // Add a layer showing the locations.
         this.map.addLayer({
           id: 'locations',
@@ -124,19 +108,11 @@
           source: 'locations',
           paint: MARKER_STYLES,
         });
-
-        // Add a layer showing the selected location.
-        this.map.addLayer({
-          id: 'selected-location',
-          type: 'circle',
-          source: 'selected-location',
-          paint: SELECTED_MARKER_STYLES,
-        });
       },
       removeListeners() {
-        this.map.off('click', 'markers', this.onClickMarker);
-        this.map.off('mouseenter', 'markers', this.onMouseEnter);
-        this.map.off('mouseleave', 'markers', this.onMouseLeave);
+        this.map.off('click', 'locations', this.onClickMarker);
+        this.map.off('mouseenter', 'locations', this.onMouseEnter);
+        this.map.off('mouseleave', 'locations', this.onMouseLeave);
       },
       zoomToCollection() {
         if (!this.locations.length) {
