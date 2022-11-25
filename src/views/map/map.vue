@@ -1,12 +1,18 @@
 <template>
   <div class="details d-flex flex-row">
     <div class="details__column">
+      <h3 class="text-h6">
+        Details meetlocatie
+      </h3>
       <location-details />
       <v-divider class="my-8" />
       <level-details />
     </div>
 
     <div class="details__column">
+      <h3 v-if="activeLevel" class="text-h6">
+        Timeseries voor {{ id }}
+      </h3>
       <area-chart v-if="showChart" />
     </div>
   </div>
@@ -29,10 +35,12 @@
       this.getLocations();
     },
     computed: {
-      ...mapGetters('level', [ 'timeseries' ]),
-      ...mapGetters('locations', [ 'activeLocation' ]),
+      ...mapGetters('level', [ 'activeLevel', 'timeseries' ]),
+      id() {
+        return this.activeLevel.properties.locationid;
+      },
       showChart() {
-        return this.timeseries.length > 0;
+        return this.activeLevel && this.timeseries.length > 0;
       },
     },
     methods: {
@@ -44,26 +52,4 @@
   };
 </script>
 
-<style>
-  .details {
-    height: 100%;
-    overflow: hidden;
-    padding: 24px 0;
-    gap: 24px;
-  }
-
-  .details__column {
-    display: inline-block;
-    height: 100%;
-    overflow: auto;
-    padding: 0 24px;
-  }
-
-  .details__column:first-child {
-    flex: 0 0 600px;
-  }
-
-  .details__column:last-child {
-    flex: 1 1 auto;
-  }
-</style>
+<style src="./map.css"></style>

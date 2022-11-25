@@ -3,6 +3,7 @@ import getLocationsData from '@/lib/get-locations-data';
 const initialState = () => ({
   activeLocation: null,
   locations: [],
+  selectedLocation: null,
 });
 
 export default {
@@ -15,6 +16,7 @@ export default {
   getters: {
     activeLocation: state => state.activeLocation,
     locations: state => state.locations,
+    selectedLocation: state => state.selectedLocation,
   },
 
   mutations: {
@@ -29,6 +31,9 @@ export default {
     },
     SET_LOCATIONS(state, { locations }) {
       state.locations = locations;
+    },
+    SET_SELECTED_LOCATION(state, { id }) {
+      state.selectedLocation = state.locations.find(location => location.properties.loc_id === id);
     },
   },
 
@@ -46,6 +51,9 @@ export default {
     },
     setActiveLocation({ commit }, { id }) {
       commit('SET_ACTIVE_LOCATION', { id });
+    },
+    setSelectedLocation({ commit }, { id }) {
+      commit('SET_SELECTED_LOCATION', { id });
     },
   },
 };

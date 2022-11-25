@@ -1,12 +1,13 @@
 <template>
   <transition name="fade">
     <v-snackbar
+      class="toast-message"
       v-if="canShowMessage"
       :value="true"
       :color="isErrorToastMessage ? 'error' : null"
       :timeout="duration"
       elevation="24"
-      bottom
+      top
     >
       {{ message.text }}
       <template slot="action">
@@ -70,3 +71,5 @@
     },
   };
 </script>
+
+<style src="./toast-message.css"></style>

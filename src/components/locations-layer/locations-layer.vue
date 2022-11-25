@@ -9,6 +9,13 @@
     'circle-color': '#fff',
     'circle-radius': 5,
     'circle-stroke-width': 5,
+    'circle-stroke-color': '#008fc5',
+  };
+
+  const SELECTED_MARKER_STYLES = {
+    'circle-color': '#fff',
+    'circle-radius': 5,
+    'circle-stroke-width': 5,
     'circle-stroke-color': '#ff0000',
   };
 
@@ -33,16 +40,62 @@
       });
     },
     computed: {
-      ...mapGetters('locations', [ 'locations' ]),
+      ...mapGetters('locations', [ 'locations', 'selectedLocation' ]),
     },
     methods: {
       ...mapActions('app', [ 'setPanelIsCollapsed' ]),
       ...mapActions('level', { resetLevel: 'reset' }),
-      ...mapActions('locations', [ 'resetActiveLocation', 'setActiveLocation' ]),
+      ...mapActions('locations', [ 'resetActiveLocation', 'setActiveLocation', 'setSelectedLocation' ]),
       addListeners() {
         this.map.on('click', 'locations', this.onClickMarker);
         this.map.on('mouseenter', 'locations', this.onMouseEnter);
         this.map.on('mouseleave', 'locations', this.onMouseLeave);
+      },
+      addLocationToMap() {
+        const selectedLocation = featureCollection([ {
+          type: 'Feature',
+          geometry: this.selectedLocation.geometry,
+          properties: this.selectedLocation.properties,
+        } ]);
+
+        this.map
+          .getSource('selected-location')
+          .setData(selectedLocation);
+      },
+      createLocationsSource() {
+        this.map.addSource('locations', {
+          type: 'geojson',
+          data: featureCollection(
+            this.locations.map((location) => ({
+              geometry: location.geometry,
+              properties: location.properties,
+              type: 'Feature',
+            }))
+          ),
+        });
+
+        this.map.addLayer({
+          id: 'locations',
+          type: 'circle',
+          source: 'locations',
+          paint: MARKER_STYLES,
+        });
+      },
+      createSelectedLocationSource() {
+        this.map.addSource('selected-location', {
+          type: 'geojson',
+          data: {
+            type: 'FeatureCollection',
+            features: [],
+          },
+        });
+
+        this.map.addLayer({
+          id: 'selected-location',
+          type: 'circle',
+          source: 'selected-location',
+          paint: SELECTED_MARKER_STYLES,
+        });
       },
       deferredMountedTo(map) {
         this.map = map;
@@ -52,11 +105,10 @@
       onClickMarker(event) {
         const { loc_id } = event.features[0].properties;
         this.resetLevel();
-        this.setActiveLocation({ id: loc_id });
-        this.setPanelIsCollapsed({ isCollapsed: false });
 
-        // Selected location layer need to be separate component, like this one.
-        // this.showSelectedLocation({});
+        this.setActiveLocation({ id: loc_id });
+        this.setSelectedLocation({ id: loc_id });
+        this.setPanelIsCollapsed({ isCollapsed: false });
       },
       onMouseEnter(event) {
         const { features, lngLat } = event;
@@ -89,25 +141,8 @@
         this.popup.remove();
       },
       populateMap() {
-        // Create source from locations.
-        this.map.addSource('locations', {
-          type: 'geojson',
-          data: featureCollection(
-            this.locations.map((location) => ({
-              geometry: location.geometry,
-              properties: location.properties,
-              type: 'Feature',
-            }))
-          ),
-        });
-
-        // Add a layer showing the locations.
-        this.map.addLayer({
-          id: 'locations',
-          type: 'circle',
-          source: 'locations',
-          paint: MARKER_STYLES,
-        });
+        this.createLocationsSource();
+        this.createSelectedLocationSource();
       },
       removeListeners() {
         this.map.off('click', 'locations', this.onClickMarker);
@@ -133,6 +168,11 @@
         if (isLoaded) {
           this.addListeners();
           this.populateMap();
+        }
+      },
+      selectedLocation(location) {
+        if (location) {
+          this.addLocationToMap(location);
         }
       },
     },

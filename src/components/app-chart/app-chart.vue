@@ -7,7 +7,7 @@
         indeterminate
       />
     </div>
-    <div v-else class="app-chart__canvas">
+    <div v-else class="app-chart__container">
       <slot />
     </div>
   </div>

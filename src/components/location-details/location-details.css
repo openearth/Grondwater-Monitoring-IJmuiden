@@ -1,3 +1,5 @@
-.location-details__title {
-  margin-bottom: 16px;
+.location-details__images {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 32px;
 }

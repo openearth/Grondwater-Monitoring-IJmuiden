@@ -1,7 +1,5 @@
 <template>
   <div class="location-details">
-    <h3 class="location-details__title text-h6">Details meetlocatie</h3>
-
     <v-simple-table v-if="activeLocation">
       <template v-slot:default>
         <tbody>
@@ -20,13 +18,36 @@
         </tbody>
       </template>
     </v-simple-table>
+    <div class="location-details__images" v-if="images.length">
+      <a
+        v-for="image in images"
+        :key="image"
+        :href="image"
+        target="_blank"
+        title="Open afbeelding in nieuw tabblad"
+      >
+        <v-img
+          :lazy-src="image"
+          max-width="260"
+          :src="image"
+          alt=""
+        />
+      </a>
+    </div>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex';
 
+  import getLocationImages from '@/lib/get-location-images';
+
   export default {
+    data() {
+      return {
+        images: [],
+      };
+    },
     computed: {
       ...mapGetters('locations', [ 'activeLocation' ]),
       id() {
@@ -37,6 +58,14 @@
       },
       meanhead() {
         return this.activeLocation.properties.meanhead;
+      },
+    },
+    watch: {
+      activeLocation(location) {
+        if (location) {
+          getLocationImages({ id: location.properties.loc_id })
+            .then((images) => this.images = images);
+        }
       },
     },
   };

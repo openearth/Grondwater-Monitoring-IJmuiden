@@ -7,7 +7,7 @@
       title="Minimaliseer"
       @click="onClick"
     >
-      <v-icon>mdi-arrow-collapse-down</v-icon>
+      <v-icon>mdi-chevron-down</v-icon>
     </v-btn>
     <router-view />
   </div>

@@ -47,10 +47,10 @@ export default {
     },
     getLevel({ commit }, { id }) {
       return getLevelData({ id })
-        .then(data => {
-          const { location, timeseries } = data;
-          commit('SET_ACTIVE_LEVEL', { level: location });
-          commit('SET_TIMESERIES', { timeseries });
+        .then(({ parameters, properties, statistics, timeseries }) => {
+          const level = { parameters, properties, statistics };
+          commit('SET_ACTIVE_LEVEL', { level });
+          commit('SET_TIMESERIES', { timeseries: timeseries });
         })
         .catch(err => Promise.reject(err));
     },

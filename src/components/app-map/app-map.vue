@@ -21,7 +21,9 @@
   import LocationsLayer from '@/components/locations-layer/locations-layer';
 
   export default {
-    components: { LocationsLayer },
+    components: {
+      LocationsLayer,
+    },
     created() {
       this.setToastMessage({ text: 'Selecteer een meetlocatie op de kaart voor details.' });
     },
