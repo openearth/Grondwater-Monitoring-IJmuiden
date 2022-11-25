@@ -101,7 +101,7 @@
       deferredMountedTo(map) {
         this.map = map;
         this.mapLoaded = true;
-        this.zoomToCollection();
+        this.zoomToCollection({ padding: 150 });
       },
       onClickMarker(event) {
         const { loc_id } = event.features[0].properties;
@@ -150,7 +150,7 @@
         this.map.off('mouseenter', 'locations', this.onMouseEnter);
         this.map.off('mouseleave', 'locations', this.onMouseLeave);
       },
-      zoomToCollection() {
+      zoomToCollection({ padding }) {
         if (!this.locations.length) {
           return;
         }
@@ -161,7 +161,7 @@
           }))
         ));
 
-        this.map.fitBounds(bounds, { padding: 150 });
+        this.map.fitBounds(bounds, { padding });
       },
     },
     watch: {
@@ -173,12 +173,12 @@
       },
       panelIsCollapsed(isCollapsed) {
         if (isCollapsed) {
-          this.zoomToCollection();
+          this.zoomToCollection({ padding: 150 });
         } else {
-          this.map.flyTo({
-            center: [ 4.602, 52.449 ],
-            zoom: 12.47,
-          });
+          const height = this.$root.$el.offsetHeight - 64;
+          const bottomOffset = parseInt(height * 0.66, 10);
+
+          this.zoomToCollection({ padding: { top: 50, bottom: bottomOffset, left: 50, right: 50 } });
         }
       },
       selectedLocation(location) {
