@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Map from '@/views/map';
+import Map from '@/views/map/map';
 
 Vue.use(VueRouter);
 

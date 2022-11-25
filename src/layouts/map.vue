@@ -1,7 +1,5 @@
 <template>
   <v-app>
-    <app-sidebar />
-
     <v-app-bar
       class="app-header"
       app
@@ -18,8 +16,9 @@
       </v-toolbar-title>
     </v-app-bar>
 
-    <v-main>
+    <v-main class="app-main">
       <app-map />
+      <app-panel />
     </v-main>
 
     <welcome-dialog />
@@ -35,14 +34,14 @@
   import { mapGetters } from 'vuex';
 
   import AppMap from '@/components/app-map/app-map';
-  import AppSidebar from '@/components/app-sidebar/app-sidebar';
+  import AppPanel from '@/components/app-panel/app-panel';
   import ToastMessage from '@/components/toast-message/toast-message';
   import WelcomeDialog from '@/components/welcome-dialog/welcome-dialog';
 
   export default {
     components: {
       AppMap,
-      AppSidebar,
+      AppPanel,
       ToastMessage,
       WelcomeDialog,
     },
