@@ -1,5 +1,11 @@
 import { stringify } from 'query-string';
 
+/**
+ * Create a GeoServer url.
+ *
+ * @param {object} options - The options object.
+ * @returns {string} - The GeoServer url.
+ */
 export default function({ url, service, request, encode = true, ...rest }) {
   if (!request) {
     return undefined;

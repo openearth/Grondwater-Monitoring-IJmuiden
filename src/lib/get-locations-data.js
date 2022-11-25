@@ -1,5 +1,10 @@
 import geoServerUrl from './geoserver-url';
 
+/**
+ * Get locations data.
+ *
+ * @returns {Promise} - An object with locations data.
+ */
 export default async function getLocationsData () {
   const url = await geoServerUrl({
     url: process.env.VUE_APP_GEOSERVER_BASE_URL + '/wps',

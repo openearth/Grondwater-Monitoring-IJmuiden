@@ -9,6 +9,13 @@
     'circle-color': '#fff',
     'circle-radius': 5,
     'circle-stroke-width': 5,
+    'circle-stroke-color': '#008fc5',
+  };
+
+  const SELECTED_MARKER_STYLES = {
+    'circle-color': '#fff',
+    'circle-radius': 5,
+    'circle-stroke-width': 5,
     'circle-stroke-color': '#ff0000',
   };
 
@@ -22,7 +29,6 @@
         map: null,
         mapLoaded: false,
         popup: null,
-        shouldZoomIn: false,
       };
     },
     created() {
@@ -34,23 +40,76 @@
       });
     },
     computed: {
-      ...mapGetters('locations', [ 'locations' ]),
+      ...mapGetters('app', [ 'panelIsCollapsed' ]),
+      ...mapGetters('locations', [ 'locations', 'selectedLocation' ]),
     },
     methods: {
-      ...mapActions('locations', [ 'setActiveLocation' ]),
+      ...mapActions('app', [ 'setPanelIsCollapsed' ]),
+      ...mapActions('level', { resetLevel: 'reset' }),
+      ...mapActions('locations', [ 'resetActiveLocation', 'setActiveLocation', 'setSelectedLocation' ]),
       addListeners() {
-        this.map.on('click', 'markers', this.onClickMarker);
-        this.map.on('mouseenter', 'markers', this.onMouseEnter);
-        this.map.on('mouseleave', 'markers', this.onMouseLeave);
+        this.map.on('click', 'locations', this.onClickMarker);
+        this.map.on('mouseenter', 'locations', this.onMouseEnter);
+        this.map.on('mouseleave', 'locations', this.onMouseLeave);
+      },
+      addLocationToMap() {
+        const selectedLocation = featureCollection([ {
+          type: 'Feature',
+          geometry: this.selectedLocation.geometry,
+          properties: this.selectedLocation.properties,
+        } ]);
+
+        this.map
+          .getSource('selected-location')
+          .setData(selectedLocation);
+      },
+      createLocationsSource() {
+        this.map.addSource('locations', {
+          type: 'geojson',
+          data: featureCollection(
+            this.locations.map((location) => ({
+              geometry: location.geometry,
+              properties: location.properties,
+              type: 'Feature',
+            }))
+          ),
+        });
+
+        this.map.addLayer({
+          id: 'locations',
+          type: 'circle',
+          source: 'locations',
+          paint: MARKER_STYLES,
+        });
+      },
+      createSelectedLocationSource() {
+        this.map.addSource('selected-location', {
+          type: 'geojson',
+          data: {
+            type: 'FeatureCollection',
+            features: [],
+          },
+        });
+
+        this.map.addLayer({
+          id: 'selected-location',
+          type: 'circle',
+          source: 'selected-location',
+          paint: SELECTED_MARKER_STYLES,
+        });
       },
       deferredMountedTo(map) {
         this.map = map;
         this.mapLoaded = true;
-        this.shouldZoomIn = true;
+        this.zoomToCollection({ padding: 150 });
       },
       onClickMarker(event) {
         const { loc_id } = event.features[0].properties;
+        this.resetLevel();
+
         this.setActiveLocation({ id: loc_id });
+        this.setSelectedLocation({ id: loc_id });
+        this.setPanelIsCollapsed({ isCollapsed: false });
       },
       onMouseEnter(event) {
         const { features, lngLat } = event;
@@ -83,29 +142,26 @@
         this.popup.remove();
       },
       populateMap() {
-        this.map.addSource('markers', {
-          type: 'geojson',
-          data: featureCollection(
-            this.locations.map((location) => ({
-              geometry: location.geometry,
-              properties: location.properties,
-              type: 'Feature',
-            }))
-          ),
-        });
-
-        // Add a layer showing the places.
-        this.map.addLayer({
-          id: 'markers',
-          type: 'circle',
-          source: 'markers',
-          paint: MARKER_STYLES,
-        });
+        this.createLocationsSource();
+        this.createSelectedLocationSource();
       },
       removeListeners() {
-        this.map.off('click', 'markers', this.onClickMarker);
-        this.map.off('mouseenter', 'markers', this.onMouseEnter);
-        this.map.off('mouseleave', 'markers', this.onMouseLeave);
+        this.map.off('click', 'locations', this.onClickMarker);
+        this.map.off('mouseenter', 'locations', this.onMouseEnter);
+        this.map.off('mouseleave', 'locations', this.onMouseLeave);
+      },
+      zoomToCollection({ padding }) {
+        if (!this.locations.length) {
+          return;
+        }
+
+        const bounds = bbox(featureCollection(
+          this.locations.map(({ geometry }) => ({
+            type: 'Feature', geometry,
+          }))
+        ));
+
+        this.map.fitBounds(bounds, { padding });
       },
     },
     watch: {
@@ -115,16 +171,19 @@
           this.populateMap();
         }
       },
-      shouldZoomIn(shouldZoom) {
-        if (this.locations.length && shouldZoom) {
-          const bounds = bbox(featureCollection(
-            this.locations.map(({ geometry }) => ({
-              type: 'Feature', geometry,
-            }))
-          ));
+      panelIsCollapsed(isCollapsed) {
+        if (isCollapsed) {
+          this.zoomToCollection({ padding: 150 });
+        } else {
+          const height = this.$root.$el.offsetHeight - 64;
+          const bottomOffset = parseInt(height * 0.66, 10);
 
-          this.map.fitBounds(bounds, { padding: 100 });
-          this.shouldZoomIn = false;
+          this.zoomToCollection({ padding: { top: 50, bottom: bottomOffset, left: 50, right: 50 } });
+        }
+      },
+      selectedLocation(location) {
+        if (location) {
+          this.addLocationToMap(location);
         }
       },
     },
