@@ -40,6 +40,7 @@
       });
     },
     computed: {
+      ...mapGetters('app', [ 'panelIsCollapsed' ]),
       ...mapGetters('locations', [ 'locations', 'selectedLocation' ]),
     },
     methods: {
@@ -168,6 +169,16 @@
         if (isLoaded) {
           this.addListeners();
           this.populateMap();
+        }
+      },
+      panelIsCollapsed(isCollapsed) {
+        if (isCollapsed) {
+          this.zoomToCollection();
+        } else {
+          this.map.flyTo({
+            center: [ 4.602, 52.449 ],
+            zoom: 12.47,
+          });
         }
       },
       selectedLocation(location) {
