@@ -14,7 +14,7 @@ export default async function getLevelData ({ id }) {
     service: 'wps',
     version: '2.0.0',
     Identifier: 'wps_gettimeseries',
-    datainputs: `locationinfo={"locid": "${ id }", "parameter": "Divermeting: grondwaterstand"}`,
+    datainputs: `locationinfo={"locid": "${ id }", "parameter": "Zoetwaterstijghoogte gecorrigeerd voor dichtheid"}`,
   });
 
   return fetch(url)
