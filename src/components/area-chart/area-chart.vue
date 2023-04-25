@@ -94,7 +94,7 @@
       yAxis() {
         return {
           boundaryGap: [ 0, '100%' ],
-          name: 'Grondwaterstand cm + NAP',
+          name: 'Grondwaterstand m + NAP',
           type: 'value',
         };
       },
@@ -162,7 +162,7 @@
               },
               symbol: [ 'none', 'none' ],
             },
-            name: 'Grondwaterstand cm + NAP',
+            name: 'Grondwaterstand m + NAP',
             sampling: 'lttb',
             type: 'line',
           },
