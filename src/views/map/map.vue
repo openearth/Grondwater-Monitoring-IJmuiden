@@ -9,11 +9,40 @@
       <level-details />
     </div>
 
-    <div class="details__column">
+    <div class="details__column" style="margin-top: 30px">
+          <v-card>
+      <v-tabs
+        background-color="primary"
+        center-active
+        dark
+      >
+        <v-tab>Pictures</v-tab>
+        <v-tab>Elevation</v-tab>
+        <v-tab>Water Quality</v-tab>
+
+      <v-tab-item>
+          <h3 class="text-h6">
+            Pictures
+          </h3>
+      </v-tab-item>
+
+      <v-tab-item>
       <h3 v-if="activeLevel" class="text-h6">
         Timeseries voor {{ id }}
       </h3>
       <area-chart v-if="showChart" />
+
+      </v-tab-item>
+
+      <v-tab-item>
+          <h3 class="text-h6">
+            Pictures
+          </h3>
+      </v-tab-item>
+
+      </v-tabs>
+    </v-card>
+
     </div>
   </div>
 </template>
