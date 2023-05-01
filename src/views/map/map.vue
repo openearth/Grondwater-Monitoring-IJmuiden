@@ -16,28 +16,39 @@
         center-active
         dark
       >
-        <v-tab>Pictures</v-tab>
-        <v-tab>Elevation</v-tab>
-        <v-tab>Water Quality</v-tab>
+        <v-tab>Grondwaterstand</v-tab>
+        <v-tab>Geologie</v-tab>
+        <v-tab>Veldmeting</v-tab>
 
-      <v-tab-item>
-          <h3 class="text-h6">
-            Pictures
-          </h3>
-      </v-tab-item>
-
-      <v-tab-item>
-      <h3 v-if="activeLevel" class="text-h6">
-        Timeseries voor {{ id }}
-      </h3>
+      <v-tab-item style="margin: 10px">
+        <h3 v-if="!activeLevel" class="text-h6">
+          Er is geen peilfilter geselecteerd, kies 'Selecteer peilfilter op deze meetlocatie' <br>
+          <v-icon color="black" size="48">mdi-arrow-bottom-left</v-icon>
+        </h3>
+        <h3 v-if="activeLevel" class="text-h6">
+          Timeseries voor {{ id }}
+        </h3>
       <area-chart v-if="showChart" />
-
       </v-tab-item>
 
-      <v-tab-item>
-          <h3 class="text-h6">
-            Pictures
-          </h3>
+      <v-tab-item style="margin: 10px">
+        <h3 v-if="!activeLevel" class="text-h6">
+          Er is geen peilfilter geselecteerd, kies 'Selecteer peilfilter op deze meetlocatie' <br>
+          <v-icon color="black" size="48">mdi-arrow-bottom-left</v-icon>
+        </h3>
+        <h3 v-if="activeLevel" class="text-h6">
+          Foto's van  {{ id }}
+        </h3>
+      </v-tab-item>
+
+      <v-tab-item style="margin: 10px">
+        <h3 v-if="!activeLevel" class="text-h6">
+          Er is geen peilfilter geselecteerd, kies 'Selecteer peilfilter op deze meetlocatie' <br>
+          <v-icon color="black" size="48">mdi-arrow-bottom-left</v-icon>
+        </h3>
+        <h3 v-if="activeLevel" class="text-h6">
+          Informatie van  {{ id }}
+        </h3>
       </v-tab-item>
 
       </v-tabs>
