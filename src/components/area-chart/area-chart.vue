@@ -98,8 +98,8 @@
           type: 'value',
           nameLocation: 'end',
           nameTextStyle: {
-            padding: [0, 0, -12, 60],
-          }
+            padding: [ 0, 0, -12, 60 ],
+          },
         };
       },
       options() {
