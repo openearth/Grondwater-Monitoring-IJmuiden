@@ -26,7 +26,7 @@
           <v-icon color="black" size="48">mdi-arrow-bottom-left</v-icon>
         </h3>
         <h3 v-if="activeLevel" class="text-h6">
-          Timeseries voor {{ id }}
+          Tijdreeks voor {{ id }}
         </h3>
       <area-chart v-if="showChart" />
       </v-tab-item>
