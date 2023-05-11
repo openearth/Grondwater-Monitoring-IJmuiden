@@ -51,7 +51,7 @@
     },
     data() {
       return {
-        initOptions: { height: '500px', width: '1200px' },
+        initOptions: { height: '400px', width: '1200px' },
       };
     },
     mounted() {
