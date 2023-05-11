@@ -24,3 +24,9 @@
 .details__column:last-child {
   flex: 1 1 auto;
 }
+
+.location-details__images {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 32px;
+}

@@ -1,10 +1,16 @@
 <template>
   <app-chart class="area-chart" ref="chart">
     <div class="area-chart__chart">
-      <v-chart
-        :init-options="initOptions"
-        :option="options"
-      />
+      <v-responsive
+        class="scroll-x"
+        :min-height="0"
+        :style="{ 'overflow-x': 'auto' }"
+      >
+        <v-chart
+          :init-options="initOptions"
+          :option="options"
+        />
+      </v-responsive>
     </div>
   </app-chart>
 </template>
@@ -45,11 +51,12 @@
     },
     data() {
       return {
-        initOptions: { height: '500px' },
+        initOptions: { height: '500px', width: '1200px' },
       };
     },
     mounted() {
-      this.setChartHeight();
+      console.log('area-chart mounted');
+      // this.setChartHeight();
     },
     computed: {
       ...mapGetters('level', [ 'timeseries' ]),
@@ -175,7 +182,9 @@
     },
     methods: {
       setChartHeight() {
+        console.log(this.$refs.chart.$el);
         const { offsetHeight } = this.$refs.chart.$el;
+        console.log(offsetHeight);
         // set offset hight and remove 16px padding to prevent overflow.
         this.initOptions.height = `${ offsetHeight - 16 }px`;
       },

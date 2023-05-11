@@ -32,12 +32,24 @@
       </v-tab-item>
 
       <v-tab-item style="margin: 10px">
-        <h3 v-if="!activeLevel" class="text-h6">
-          Er is geen peilfilter geselecteerd, kies 'Selecteer peilfilter op deze meetlocatie' <br>
-          <v-icon color="black" size="48">mdi-arrow-bottom-left</v-icon>
-        </h3>
-        <h3 v-if="activeLevel" class="text-h6">
-          Foto's van  {{ id }}
+        <h3 class="text-h6">
+          Boorgatmeting van meetlocatie {{loc_id}} <br>
+          <div class="location-details__images" v-if="images.length">
+            <a
+              v-for="image in images"
+              :key="image"
+              :href="image"
+              target="_blank"
+              title="Open afbeelding in nieuw tabblad"
+            >
+              <v-img
+                :lazy-src="image"
+                max-width="700"
+                :src="image"
+                alt=""
+              />
+            </a>
+          </div>
         </h3>
       </v-tab-item>
 
@@ -64,6 +76,7 @@
   import AreaChart from '@/components/area-chart/area-chart';
   import LevelDetails from '@/components/level-details/level-details';
   import LocationDetails from '@/components/location-details/location-details';
+  import getLocationImages from '@/lib/get-location-images';
 
   export default {
     components: {
@@ -71,22 +84,43 @@
       LevelDetails,
       LocationDetails,
     },
+    data() {
+      return {
+        images: [],
+      };
+    },
     created() {
       this.getLocations();
     },
     computed: {
       ...mapGetters('level', [ 'activeLevel', 'timeseries' ]),
+      ...mapGetters('locations', [ 'activeLocation' ]),
+
       id() {
         return this.activeLevel.properties.locationid;
       },
       showChart() {
         return this.activeLevel && this.timeseries.length > 0;
       },
+      loc_id() {
+        if (this.activeLocation && this.activeLocation.properties) {
+          return this.activeLocation.properties.loc_id;
+        }
+        return null;
+      },
     },
     methods: {
       ...mapActions('locations', [ 'getLocations', 'setTimeseriesModalOpen' ]),
       onClick() {
         this.setTimeseriesModalOpen({ open: true });
+      },
+    },
+    watch: {
+      activeLocation(location) {
+        if (location) {
+          getLocationImages({ id: location.properties.loc_id })
+            .then((images) => this.images = images);
+        }
       },
     },
   };

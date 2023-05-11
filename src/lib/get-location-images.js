@@ -9,7 +9,7 @@ const DOMAIN = 'https://grondwater-ijmuiden.openearth.nl';
  * @returns {Promise} - An array of available image urls.
  */
 export default async function getLocationImages ({ id }) {
-  const boreholeUrls = EXTENSIONS.map(ext => `${ DOMAIN }/static/boorgatmeting/${ id }.${ ext }`);
+  const boreholeUrls = EXTENSIONS.map(ext => `${ DOMAIN }/static/boorgatmetingen/${ id }.${ ext }`);
   const locationUrls = EXTENSIONS.map(ext => `${ DOMAIN }/static/fotos/${ id }.${ ext }`);
   const fetches = [ ...boreholeUrls, ...locationUrls ].map(url => fetch(url));
 
