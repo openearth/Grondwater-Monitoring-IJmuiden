@@ -18,6 +18,7 @@
       >
         <v-tab>Grondwaterstand</v-tab>
         <v-tab>Geologie</v-tab>
+        <v-tab>Waterkwaliteit</v-tab>
         <v-tab>Veldmeting</v-tab>
 
       <v-tab-item style="margin: 10px">
@@ -54,6 +55,28 @@
       </v-tab-item>
 
       <v-tab-item style="margin: 10px">
+        <h3 class="text-h6">
+          Waterkwaliteit van meetlocatie {{loc_id}} <br>
+          <div class="location-details__images" v-if="images.length">
+            <a
+              v-for="table in tables"
+              :key="table"
+              :href="table"
+              target="_blank"
+              title="Open afbeelding in nieuw tabblad"
+            >
+              <v-img
+                :lazy-src="table"
+                max-width="1200"
+                :src="table"
+                alt=""
+              />
+            </a>
+          </div>
+        </h3>
+      </v-tab-item>
+
+      <v-tab-item style="margin: 10px">
         <h3 v-if="!activeLevel" class="text-h6">
           Er is geen peilfilter geselecteerd, kies 'Selecteer peilfilter op deze meetlocatie' <br>
           <v-icon color="black" size="48">mdi-arrow-bottom-left</v-icon>
@@ -77,6 +100,7 @@
   import LevelDetails from '@/components/level-details/level-details';
   import LocationDetails from '@/components/location-details/location-details';
   import getLocationImages from '@/lib/get-location-images';
+  import getTableImages from '@/lib/get-table-images';
 
   export default {
     components: {
@@ -87,6 +111,7 @@
     data() {
       return {
         images: [],
+        tables: [],
       };
     },
     created() {
@@ -120,6 +145,10 @@
         if (location) {
           getLocationImages({ id: location.properties.loc_id })
             .then((images) => this.images = images);
+        }
+        if (location) {
+          getTableImages({ id: location.properties.loc_id })
+            .then((tables) => this.tables = tables);
         }
       },
     },
