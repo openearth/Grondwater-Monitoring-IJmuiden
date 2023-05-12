@@ -107,6 +107,8 @@
           nameTextStyle: {
             padding: [ 0, 0, -12, 60 ],
           },
+          min: -1.2,
+          max: 2.2,
         };
       },
       options() {
@@ -156,6 +158,27 @@
               },
               symbol: 'arrow',
               symbolSize: '10',
+            },
+            markLine: {
+              data: [
+                { yAxis: -0.4, name: 'Streefpeil Noordzeekanaal' },
+                { yAxis: -1.03, name: 'Laagwater' },
+                { yAxis: 1.8, name: 'Gemiddeld hoogwater' },
+              ],
+              label: {
+                show: true,
+                position: 'insideStartBottom',
+                formatter: function(params) {
+                  return params.data.name;
+                },
+              },
+              emphasis: {
+                disabled: true,
+              },
+              lineStyle: {
+                color: '#373737',
+              },
+              symbol: [ 'none', 'none' ],
             },
             name: 'Grondwaterstand m + NAP',
             sampling: 'lttb',
