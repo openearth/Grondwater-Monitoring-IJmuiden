@@ -120,9 +120,6 @@
       series() {
         return [
           {
-            areaStyle: {
-              color: 'rgba(0, 143, 197, 0.3)',
-            },
             data: this.values,
             itemStyle: {
               color: '#008fc5',
@@ -159,19 +156,6 @@
               },
               symbol: 'arrow',
               symbolSize: '10',
-            },
-            markLine: {
-              data: [
-                { type: 'max', name: 'Max' },
-                { type: 'min', name: 'Min' },
-              ],
-              emphasis: {
-                disabled: true,
-              },
-              lineStyle: {
-                color: '#373737',
-              },
-              symbol: [ 'none', 'none' ],
             },
             name: 'Grondwaterstand m + NAP',
             sampling: 'lttb',
