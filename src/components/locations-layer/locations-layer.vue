@@ -115,11 +115,21 @@
         const { features, lngLat } = event;
         const coordinates = features[0].geometry.coordinates.slice();
         const { loc_id, meanhead } = features[0].properties;
+        // get names of levels (properties.locid _ filternames) (get filters, split on ',', loop over array)
+        // retrieve the data that belongs to these level names with: this.getLevel({ id:  level_name});
+        // add information to the table
+
+        // tableName = ""
+        // names.forEach(name => {
+        //   tableName =           `${tableName}<dt class="text-subtitle-2">${name}:</dt>
+        //   <dd class="text-body-2">${ meanWaterLevel }</dd>`
+        // })
         const content = `<dl>
           <dt class="text-subtitle-2">Locatie id:</dt>
           <dd class="text-body-2">${ loc_id }</dd>
           <dt class="text-subtitle-2">Gem. gwstand:</dt>
           <dd class="text-body-2">${ meanhead }</dd>
+          ${tableName}
         </dl>`;
 
         // Change the cursor style as a UI indicator.
