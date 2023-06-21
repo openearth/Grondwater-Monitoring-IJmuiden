@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
 
   export default {
     computed: {
@@ -36,6 +36,12 @@
       meanhead() {
         return this.activeLocation.properties.meanhead;
       },
+    },
+    mounted () {
+      this.getPh({ id: this.id });
+    },
+    methods: {
+      ...mapActions('ph', [ 'getPh' ]),
     },
   };
 </script>
