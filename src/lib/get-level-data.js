@@ -1,5 +1,6 @@
 import geoServerUrl from './geoserver-url';
 import mapChartData from '@/lib/map-chart-data';
+import xmlToJson from '@/lib/xml-to-json';
 
 /**
  * Get level data for a location based on the level id.
@@ -20,9 +21,7 @@ export default async function getLevelData ({ id }) {
   return fetch(url)
     .then(response => response.text())
     .then(string => {
-      const document = new window.DOMParser().parseFromString(string, 'text/xml');
-      const element = document.getElementsByTagName('wps:ComplexData');
-      const rawData = JSON.parse(element[0].innerHTML);
+      const rawData = xmlToJson(string);
 
       const value = {
         parameters: rawData.parameterproperties,

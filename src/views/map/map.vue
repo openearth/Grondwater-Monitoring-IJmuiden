@@ -83,6 +83,20 @@
         </h3>
         <h3 v-if="activeLevel" class="text-h6">
           Informatie van  {{ id }}
+
+          <v-simple-table v-if="activeLocation">
+            <tbody>
+              <tr>
+                <th>Date</th>
+                <th>Head</th>
+              </tr>
+              <tr v-for="item in phTimeseries" :key="item.date">
+                <td>{{ item.date }}</td>
+                <td>{{ item.head }}</td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+
         </h3>
       </v-tab-item>
 
@@ -118,14 +132,15 @@
       this.getLocations();
     },
     computed: {
-      ...mapGetters('level', [ 'activeLevel', 'timeseries' ]),
+      ...mapGetters('level', { activeLevel: 'activeLevel', levelTimeseries: 'timeseries' }),
+      ...mapGetters('ph', { activePh: 'activePh', phTimeseries: 'timeseries' }),
       ...mapGetters('locations', [ 'activeLocation' ]),
 
       id() {
         return this.activeLevel.properties.locationid;
       },
       showChart() {
-        return this.activeLevel && this.timeseries.length > 0;
+        return this.activeLevel && this.levelTimeseries.length > 0;
       },
       loc_id() {
         if (this.activeLocation && this.activeLocation.properties) {

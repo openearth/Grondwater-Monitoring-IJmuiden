@@ -37,12 +37,6 @@
         return this.activeLocation.properties.meanhead;
       },
     },
-    mounted () {
-      this.getPh({ id: this.id });
-    },
-    methods: {
-      ...mapActions('ph', [ 'getPh' ]),
-    },
   };
 </script>
 

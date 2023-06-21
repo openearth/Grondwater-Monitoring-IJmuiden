@@ -142,8 +142,10 @@
     },
     methods: {
       ...mapActions('level', [ 'getLevel' ]),
+      ...mapActions('ph', [ 'getPh' ]),
       onChange() {
         this.getLevel({ id: this.selectedLevel });
+        this.getPh({ id: this.selectedLevel });
       },
     },
   };
