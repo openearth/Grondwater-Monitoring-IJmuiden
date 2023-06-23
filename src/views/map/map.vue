@@ -85,6 +85,7 @@
           Informatie van  {{ id }}
           <br>
           <br>
+          <h5> Electrical Conductivity </h5>
           <v-card elevation="5">
             <v-simple-table v-if="activeLocation">
               <tbody>
@@ -100,6 +101,7 @@
             </v-simple-table>
           </v-card>
           <br>
+          <h5> pH </h5>
           <v-card elevation="5">
             <v-simple-table v-if="activeLocation">
               <tbody>
@@ -115,12 +117,13 @@
             </v-simple-table>
           </v-card>
           <br>
+          <h5> Redox potential </h5>
           <v-card elevation="5">
             <v-simple-table v-if="activeLocation">
               <tbody>
                 <tr>
                   <th>Date</th>
-                  <th>Redox potential [mV]</th>
+                  <th>Redox [mV]</th>
                 </tr>
                 <tr v-for="item in redoxTimeseries" :key="item.date">
                   <td>{{ item.date }}</td>
