@@ -5,6 +5,7 @@ import app from './modules/app';
 import level from './modules/level';
 import locations from './modules/locations';
 import ph from './modules/ph';
+import ec from './modules/ec';
 
 Vue.use(Vuex);
 
@@ -14,5 +15,6 @@ export default new Vuex.Store({
     level,
     locations,
     ph,
+    ec,
   },
 });

@@ -24,11 +24,13 @@
       ...mapActions('app', [ 'setPanelIsCollapsed' ]),
       ...mapActions('level', { resetLevel: 'reset' }),
       ...mapActions('ph', { resetPh: 'reset' }),
+      ...mapActions('ec', { resetEc: 'reset' }),
       ...mapActions('locations', [ 'resetActiveLocation' ]),
       onClick() {
         this.setPanelIsCollapsed({ isCollapsed: true });
         this.resetLevel();
         this.resetPh();
+        this.resetEc();
         this.resetActiveLocation();
       },
     },

@@ -83,20 +83,37 @@
         </h3>
         <h3 v-if="activeLevel" class="text-h6">
           Informatie van  {{ id }}
-
-          <v-simple-table v-if="activeLocation">
-            <tbody>
-              <tr>
-                <th>Date</th>
-                <th>Head</th>
-              </tr>
-              <tr v-for="item in phTimeseries" :key="item.date">
-                <td>{{ item.date }}</td>
-                <td>{{ item.head }}</td>
-              </tr>
-            </tbody>
-          </v-simple-table>
-
+          <br>
+          <br>
+          <v-card elevation="5">
+            <v-simple-table v-if="activeLocation">
+              <tbody>
+                <tr>
+                  <th>Date</th>
+                  <th>EC [uS/cm]</th>
+                </tr>
+                <tr v-for="item in ecTimeseries" :key="item.date">
+                  <td>{{ item.date }}</td>
+                  <td>{{ item.head }}</td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+          </v-card>
+          <br>
+          <v-card elevation="5">
+            <v-simple-table v-if="activeLocation">
+              <tbody>
+                <tr>
+                  <th>Date</th>
+                  <th>pH [-]</th>
+                </tr>
+                <tr v-for="item in phTimeseries" :key="item.date">
+                  <td>{{ item.date }}</td>
+                  <td>{{ item.head }}</td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+          </v-card>
         </h3>
       </v-tab-item>
 
@@ -115,7 +132,7 @@
   import LocationDetails from '@/components/location-details/location-details';
   import getLocationImages from '@/lib/get-location-images';
   import getTableImages from '@/lib/get-table-images';
-
+  
   export default {
     components: {
       AreaChart,
@@ -134,6 +151,7 @@
     computed: {
       ...mapGetters('level', { activeLevel: 'activeLevel', levelTimeseries: 'timeseries' }),
       ...mapGetters('ph', { activePh: 'activePh', phTimeseries: 'timeseries' }),
+      ...mapGetters('ec', { activeEc: 'activeEc', ecTimeseries: 'timeseries' }),
       ...mapGetters('locations', [ 'activeLocation' ]),
 
       id() {

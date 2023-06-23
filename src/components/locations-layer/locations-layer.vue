@@ -47,6 +47,7 @@
       ...mapActions('app', [ 'setPanelIsCollapsed' ]),
       ...mapActions('level', { resetLevel: 'reset' }),
       ...mapActions('ph', { resetPh: 'reset' }),
+      ...mapActions('ec', { resetEc: 'reset' }),
       ...mapActions('locations', [ 'resetActiveLocation', 'setActiveLocation', 'setSelectedLocation' ]),
       addListeners() {
         this.map.on('click', 'locations', this.onClickMarker);
@@ -108,6 +109,7 @@
         const { loc_id } = event.features[0].properties;
         this.resetLevel();
         this.resetPh();
+        this.resetEc();
 
         this.setActiveLocation({ id: loc_id });
         this.setSelectedLocation({ id: loc_id });
