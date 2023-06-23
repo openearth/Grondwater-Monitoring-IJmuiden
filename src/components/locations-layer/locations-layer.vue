@@ -48,6 +48,7 @@
       ...mapActions('level', { resetLevel: 'reset' }),
       ...mapActions('ph', { resetPh: 'reset' }),
       ...mapActions('ec', { resetEc: 'reset' }),
+      ...mapActions('redox', { resetRedox: 'reset' }),
       ...mapActions('locations', [ 'resetActiveLocation', 'setActiveLocation', 'setSelectedLocation' ]),
       addListeners() {
         this.map.on('click', 'locations', this.onClickMarker);
@@ -110,6 +111,7 @@
         this.resetLevel();
         this.resetPh();
         this.resetEc();
+        this.resetRedox();
 
         this.setActiveLocation({ id: loc_id });
         this.setSelectedLocation({ id: loc_id });

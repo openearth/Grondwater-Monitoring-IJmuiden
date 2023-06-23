@@ -6,6 +6,7 @@ import level from './modules/level';
 import locations from './modules/locations';
 import ph from './modules/ph';
 import ec from './modules/ec';
+import redox from './modules/redox';
 
 Vue.use(Vuex);
 
@@ -16,5 +17,6 @@ export default new Vuex.Store({
     locations,
     ph,
     ec,
+    redox,
   },
 });

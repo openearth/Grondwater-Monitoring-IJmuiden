@@ -25,12 +25,14 @@
       ...mapActions('level', { resetLevel: 'reset' }),
       ...mapActions('ph', { resetPh: 'reset' }),
       ...mapActions('ec', { resetEc: 'reset' }),
+      ...mapActions('redox', { resetRedox: 'reset' }),
       ...mapActions('locations', [ 'resetActiveLocation' ]),
       onClick() {
         this.setPanelIsCollapsed({ isCollapsed: true });
         this.resetLevel();
         this.resetPh();
         this.resetEc();
+        this.resetRedox();
         this.resetActiveLocation();
       },
     },

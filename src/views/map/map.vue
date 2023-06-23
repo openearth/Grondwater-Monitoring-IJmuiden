@@ -114,6 +114,21 @@
               </tbody>
             </v-simple-table>
           </v-card>
+          <br>
+          <v-card elevation="5">
+            <v-simple-table v-if="activeLocation">
+              <tbody>
+                <tr>
+                  <th>Date</th>
+                  <th>Redox potential [mV]</th>
+                </tr>
+                <tr v-for="item in redoxTimeseries" :key="item.date">
+                  <td>{{ item.date }}</td>
+                  <td>{{ item.head }}</td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+          </v-card>
         </h3>
       </v-tab-item>
 
@@ -152,6 +167,7 @@
       ...mapGetters('level', { activeLevel: 'activeLevel', levelTimeseries: 'timeseries' }),
       ...mapGetters('ph', { activePh: 'activePh', phTimeseries: 'timeseries' }),
       ...mapGetters('ec', { activeEc: 'activeEc', ecTimeseries: 'timeseries' }),
+      ...mapGetters('redox', { activeRedox: 'activeRedox', redoxTimeseries: 'timeseries' }),
       ...mapGetters('locations', [ 'activeLocation' ]),
 
       id() {

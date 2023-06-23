@@ -144,10 +144,12 @@
       ...mapActions('level', [ 'getLevel' ]),
       ...mapActions('ph', [ 'getPh' ]),
       ...mapActions('ec', [ 'getEc' ]),
+      ...mapActions('redox', [ 'getRedox' ]),
       onChange() {
         this.getLevel({ id: this.selectedLevel });
         this.getPh({ id: this.selectedLevel });
         this.getEc({ id: this.selectedLevel });
+        this.getRedox({ id: this.selectedLevel });
       },
     },
   };

@@ -73,6 +73,7 @@
       this.resetLevel();
       this.resetPh();
       this.resetEc();
+      this.resetRedox();
       this.resetLocations();
     },
     methods: {
@@ -80,6 +81,7 @@
       ...mapActions('level', { resetLevel: 'reset' }),
       ...mapActions('ph', { resetPh: 'reset' }),
       ...mapActions('ec', { resetEc: 'reset' }),
+      ...mapActions('redox', { resetRedox: 'reset' }),
       ...mapActions('locations', { resetLocations: 'reset' }),
     },
   };
