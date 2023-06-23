@@ -2,7 +2,7 @@
   <div class="details d-flex flex-row">
     <div class="details__column">
       <h3 class="text-h6">
-        Details meetlocatie
+        Details meetlocatie {{loc_id}}
       </h3>
       <location-details />
       <v-divider class="my-8" />

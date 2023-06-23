@@ -120,12 +120,10 @@
       onMouseEnter(event) {
         const { features, lngLat } = event;
         const coordinates = features[0].geometry.coordinates.slice();
-        const { loc_id, meanhead } = features[0].properties;
+        const { loc_id } = features[0].properties;
         const content = `<dl>
           <dt class="text-subtitle-2">Locatie id:</dt>
           <dd class="text-body-2">${ loc_id }</dd>
-          <dt class="text-subtitle-2">Gem. gwstand:</dt>
-          <dd class="text-body-2">${ meanhead }</dd>
         </dl>`;
 
         // Change the cursor style as a UI indicator.

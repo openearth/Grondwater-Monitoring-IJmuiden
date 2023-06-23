@@ -21,20 +21,20 @@
             <td>Naam</td>
             <td>{{ id }}</td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td>Coördinaten</td>
             <td>x: {{ xcoord }} - y: {{ ycoord }}</td>
-          </tr>
-          <tr>
+          </tr> -->
+          <!-- <tr>
             <td>CRS</td>
             <td>{{ crs }}</td>
-          </tr>
-          <tr>
+          </tr> -->
+          <!-- <tr>
             <td>Kabellengte</td>
             <td>{{ cableLength }}m</td>
-          </tr>
+          </tr> -->
           <tr>
-            <td>Bovenkant filter (NAP)</td>
+            <td>Top Peilbuis  (NAP)</td>
             <td>{{ filterTop }}m</td>
           </tr>
           <tr>
@@ -66,18 +66,18 @@
             <td>Gemiddelde gws (NAP)</td>
             <td>{{ mean }}m</td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td>Aantal metingen</td>
             <td>{{ measurements }}</td>
-          </tr>
-          <tr>
+          </tr> -->
+          <!-- <tr>
             <td>Meest recente gws (NAP)</td>
             <td>[VALUE]m</td>
-          </tr>
-          <tr>
+          </tr> -->
+          <!-- <tr>
             <td>Meest recente gws datumtijd</td>
             <td>[DATE]</td>
-          </tr>
+          </tr> -->
         </tbody>
       </template>
     </v-simple-table>
@@ -97,12 +97,12 @@
     computed: {
       ...mapGetters('level', [ 'activeLevel' ]),
       ...mapGetters('locations', [ 'activeLocation' ]),
-      cableLength() {
-        return this.activeLevel.properties.cable_length;
-      },
-      crs() {
-        return this.activeLevel.properties.crs;
-      },
+      // cableLength() {
+      //   return this.activeLevel.properties.cable_length;
+      // },
+      // crs() {
+      //   return this.activeLevel.properties.crs;
+      // },
       filterTop() {
         return this.activeLevel.properties.top_filter;
       },
@@ -116,10 +116,21 @@
         const { filters, loc_id } = this.activeLocation.properties;
         const splitFilters = filters.split(',');
 
-        return splitFilters.map((filter) => ({
-          text: `${ loc_id }_${ filter }`,
-          value: `${ loc_id }_${ filter }`,
-        }));
+        return splitFilters.map((filter) => {
+          let suffix = '';
+          if (filter === '1') {
+            suffix = ' - Freatisch pakket';
+          } else if (filter === '2') {
+            suffix = ' - 1\u1D49 Watervoerende pakket';
+          } else if (filter === '3') {
+            suffix = ' - 2\u1D49 Watervoerende pakket';
+          }
+
+          return {
+            text: `${ loc_id }_${ filter }${ suffix }`,
+            value: `${ loc_id }_${ filter }`,
+          };
+        });
       },
       max() {
         return this.activeLevel.statistics.maxgw;
@@ -127,18 +138,18 @@
       mean() {
         return this.activeLevel.statistics.meangw;
       },
-      measurements() {
-        return this.activeLevel.statistics.nobs;
-      },
+      // measurements() {
+      //   return this.activeLevel.statistics.nobs;
+      // },
       min() {
         return this.activeLevel.statistics.mingw;
       },
-      xcoord () {
-        return this.activeLevel.properties.xcoord;
-      },
-      ycoord () {
-        return this.activeLevel.properties.ycoord;
-      },
+      // xcoord () {
+      //   return this.activeLevel.properties.xcoord;
+      // },
+      // ycoord () {
+      //   return this.activeLevel.properties.ycoord;
+      // },
     },
     methods: {
       ...mapActions('level', [ 'getLevel' ]),

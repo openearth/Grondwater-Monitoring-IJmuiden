@@ -8,12 +8,8 @@
             <td>{{ id }}</td>
           </tr>
           <tr>
-            <td>Coördinaten</td>
-            <td>Lng: {{ coordinates[0] }} - Lat: {{ coordinates[1] }}</td>
-          </tr>
-          <tr>
-            <td>Gemiddelde</td>
-            <td>{{ meanhead }}</td>
+            <td>Coördinaten (EPSG:28992)</td>
+            <td>x: {{ coordinates_rd[0] }} - y: {{ coordinates_rd[1] }}</td>
           </tr>
         </tbody>
       </template>
@@ -22,7 +18,7 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex';
+  import { mapGetters } from 'vuex';
 
   export default {
     computed: {
@@ -30,11 +26,8 @@
       id() {
         return this.activeLocation.properties.loc_id;
       },
-      coordinates() {
-        return this.activeLocation.geometry.coordinates;
-      },
-      meanhead() {
-        return this.activeLocation.properties.meanhead;
+      coordinates_rd() {
+        return this.activeLocation.geometry_rd.coordinates;
       },
     },
   };
