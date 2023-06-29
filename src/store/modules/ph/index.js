@@ -46,6 +46,7 @@ export default {
       return getPhData({ id })
         .then(({ parameters, properties, statistics, timeseries }) => {
           const ph = { parameters, properties, statistics };
+          
           commit('SET_ACTIVE_PH', { ph });
           commit('SET_TIMESERIES', { timeseries: timeseries });
         })

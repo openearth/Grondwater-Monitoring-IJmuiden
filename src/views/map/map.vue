@@ -87,47 +87,19 @@
           <br>
           <h5> Electrical Conductivity </h5>
           <v-card elevation="5">
-            <v-simple-table v-if="activeLocation">
+            <v-simple-table v-if="activeLocation" class="data-table">
               <tbody>
                 <tr>
-                  <th>Date</th>
-                  <th>{{parameter_ec}} [{{ unit_ec }}]</th>
+                  <th class="data-table__cell">Date</th>
+                  <th class="data-table__cell data-table__cell--align-right">{{parameter_ec}} [{{ unit_ec }}]</th>
+                  <th class="data-table__cell data-table__cell--align-right">{{parameter_ph}} [{{ unit_ph }}]</th>
+                  <th class="data-table__cell data-table__cell--align-right">{{parameter_redox}} [{{ unit_redox }}]</th>
                 </tr>
-                <tr v-for="item in ecTimeseries" :key="item.date">
-                  <td>{{ item.date }}</td>
-                  <td>{{ item.head }}</td>
-                </tr>
-              </tbody>
-            </v-simple-table>
-          </v-card>
-          <br>
-          <h5> pH </h5>
-          <v-card elevation="5">
-            <v-simple-table v-if="activeLocation">
-              <tbody>
-                <tr>
-                  <th>Date</th>
-                  <th>{{parameter_ph}} [{{ unit_ph }}]</th>
-                </tr>
-                <tr v-for="item in phTimeseries" :key="item.date">
-                  <td>{{ item.date }}</td>
-                  <td>{{ item.head }}</td>
-                </tr>
-              </tbody>
-            </v-simple-table>
-          </v-card>
-          <br>
-          <h5> Redox potential </h5>
-          <v-card elevation="5">
-            <v-simple-table v-if="activeLocation">
-              <tbody>
-                <tr>
-                  <th>Date</th>
-                  <th>{{parameter_redox}} [{{ unit_redox }}]</th>
-                </tr>
-                <tr v-for="item in redoxTimeseries" :key="item.date">
-                  <td>{{ item.date }}</td>
-                  <td>{{ item.head }}</td>
+                <tr v-for="item in combinedTimeSeries" :key="item.date">
+                  <td class="data-table__cell">{{ item.date }}</td>
+                  <td class="data-table__cell data-table__cell--align-right">{{ item.ec }}</td>
+                  <td class="data-table__cell data-table__cell--align-right">{{ item.ph }}</td>
+                  <td class="data-table__cell data-table__cell--align-right">{{ item.redox }}</td>
                 </tr>
               </tbody>
             </v-simple-table>
@@ -226,6 +198,28 @@
         } else {
           return undefined;
         }
+      },
+      combinedTimeSeries() {
+        return [
+          ...this.phTimeseries.map(item => ({ ...item, parameter: 'ph' })),
+          ...this.ecTimeseries.map(item => ({ ...item, parameter: 'ec' })),
+          ...this.redoxTimeseries.map(item => ({ ...item, parameter: 'redox' })),
+        ].reduce((acc, item) => {
+          const { date, dateObj }= item;
+          const existingItem = acc.find((i) => i.date === date);
+
+          if (existingItem) {
+            existingItem[item.parameter] = item.head;
+          } else {
+            acc.push({
+              dateObj,
+              date,
+              [item.parameter]: item.head,
+            });
+          }
+
+          return acc;
+        }, []).sort((a, b) => a.dateObj - b.dateObj);
       },
     },
     methods: {

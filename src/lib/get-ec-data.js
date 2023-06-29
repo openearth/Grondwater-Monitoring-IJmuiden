@@ -27,7 +27,7 @@ export default async function getEcData ({ id }) {
         parameters: rawData.parameterproperties,
         properties: rawData.locationproperties,
         statistics: rawData.locationstats,
-        timeseries: mapChartData(rawData.timeseries),
+        timeseries: mapChartData(rawData.timeseries, { showHours: false }),
       };
 
       if (value.errMsg) {

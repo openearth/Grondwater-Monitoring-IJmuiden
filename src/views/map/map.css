@@ -30,3 +30,11 @@
   justify-content: space-between;
   margin-top: 32px;
 }
+
+.data-table__cell {
+  width: 25%;
+}
+
+.data-table__cell--align-right {
+  text-align: right !important;
+}

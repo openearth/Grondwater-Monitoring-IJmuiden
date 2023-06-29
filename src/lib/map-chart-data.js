@@ -1,15 +1,22 @@
 
-export default (array) => {
-  return array.map((item) => {
-    const { datetime, head } = item;
-    const dateParts = datetime.split(', ');
-    const date = new Date(...dateParts);
-    const hours = date.getHours().toString().padStart(2, '0');
-    const formattedDate = `${ date.getDate() }/${ date.getMonth() + 1 }/${ date.getFullYear() } ${ hours }:00`;
+export default (array, options = { showHours: true }) => {
+  const { showHours } = options;
 
-    return {
-      date: formattedDate,
-      head: parseFloat(head, 10),
-    };
-  });
+  return array
+    .sort((a, b) => {
+      return new Date(a.datetime) - new Date(b.datetime);
+    })
+    .map((item) => {
+      const { datetime, head } = item;
+      const dateParts = datetime.split(', ');
+      const date = new Date(...dateParts);
+      const hours = date.getHours().toString().padStart(2, '0');
+      const formattedDate = `${ date.getDate() }/${ date.getMonth() + 1 }/${ date.getFullYear() } ${ showHours ? `${ hours }:00` : '' }`;
+
+      return {
+        dateObj: date,
+        date: formattedDate,
+        head: parseFloat(head, 10),
+      };
+    });
 };
