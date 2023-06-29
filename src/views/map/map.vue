@@ -85,7 +85,6 @@
           Informatie van  {{ id }}
           <br>
           <br>
-          <h5> Electrical Conductivity </h5>
           <v-card elevation="5">
             <v-simple-table v-if="activeLocation" class="data-table">
               <tbody>
