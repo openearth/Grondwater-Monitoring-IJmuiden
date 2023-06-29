@@ -133,6 +133,9 @@
                     color: '#373737',
                     textBorderColor: 'none',
                     offset: [ 0, -15 ],
+                    formatter: function (params) {
+                      return params.value.toFixed(2);
+                    },
                   },
                   name: 'Max',
                   symbolOffset: [ 0, -5 ],
@@ -144,6 +147,9 @@
                     color: '#373737',
                     textBorderColor: 'none',
                     offset: [ 0, 15 ],
+                    formatter: function (params) {
+                      return params.value.toFixed(2);
+                    },
                   },
                   name: 'Min',
                   symbolOffset: [ 0, 5 ],

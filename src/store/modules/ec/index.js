@@ -14,7 +14,7 @@ export default {
 
   getters: {
     timeseries: state => state.timeseries,
-    activeEc: state => state.ec,
+    activeEc: state => state.activeEc,
   },
 
   mutations: {

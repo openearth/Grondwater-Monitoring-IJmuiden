@@ -91,7 +91,7 @@
               <tbody>
                 <tr>
                   <th>Date</th>
-                  <th>EC [uS/cm]</th>
+                  <th>{{parameter_ec}} [{{ unit_ec }}]</th>
                 </tr>
                 <tr v-for="item in ecTimeseries" :key="item.date">
                   <td>{{ item.date }}</td>
@@ -107,7 +107,7 @@
               <tbody>
                 <tr>
                   <th>Date</th>
-                  <th>pH [-]</th>
+                  <th>{{parameter_ph}} [{{ unit_ph }}]</th>
                 </tr>
                 <tr v-for="item in phTimeseries" :key="item.date">
                   <td>{{ item.date }}</td>
@@ -123,7 +123,7 @@
               <tbody>
                 <tr>
                   <th>Date</th>
-                  <th>Redox [mV]</th>
+                  <th>{{parameter_redox}} [{{ unit_redox }}]</th>
                 </tr>
                 <tr v-for="item in redoxTimeseries" :key="item.date">
                   <td>{{ item.date }}</td>
@@ -184,6 +184,48 @@
           return this.activeLocation.properties.loc_id;
         }
         return null;
+      },
+      parameter_ec() {
+        if (this.activeEc) {
+          return this.activeEc.parameters.parameter;
+        } else {
+          return undefined;
+        }
+      },
+      unit_ec() {
+        if (this.activeEc) {
+          return this.activeEc.parameters.unit;
+        } else {
+          return undefined;
+        }
+      },
+      parameter_ph() {
+        if (this.activePh) {
+          return this.activePh.parameters.parameter;
+        } else {
+          return undefined;
+        }
+      },
+      unit_ph() {
+        if (this.activePh) {
+          return this.activePh.parameters.unit;
+        } else {
+          return undefined;
+        }
+      },
+      parameter_redox() {
+        if (this.activeRedox) {
+          return this.activeRedox.parameters.parameter;
+        } else {
+          return undefined;
+        }
+      },
+      unit_redox() {
+        if (this.activeRedox) {
+          return this.activeRedox.parameters.unit;
+        } else {
+          return undefined;
+        }
       },
     },
     methods: {

@@ -35,11 +35,11 @@
           </tr> -->
           <tr>
             <td>Top Peilbuis  (NAP)</td>
-            <td>{{ filterTop }}m</td>
+            <td>{{ filterTop.toFixed(2) }}</td>
           </tr>
           <tr>
             <td>Onderkant filter (NAP)</td>
-            <td>{{ filterBottom }}m</td>
+            <td>{{ filterBottom.toFixed(2) }}</td>
           </tr>
         </tbody>
       </template>
@@ -56,15 +56,15 @@
         <tbody>
           <tr>
             <td>Min gws (NAP)</td>
-            <td>{{ min }}m</td>
+            <td>{{ min.toFixed(2) }}</td>
           </tr>
           <tr>
             <td>Max gws (NAP)</td>
-            <td>{{ max }}m</td>
+            <td>{{ max.toFixed(2) }}</td>
           </tr>
           <tr>
             <td>Gemiddelde gws (NAP)</td>
-            <td>{{ mean }}m</td>
+            <td>{{ mean.toFixed(2) }}</td>
           </tr>
           <!-- <tr>
             <td>Aantal metingen</td>
@@ -133,16 +133,16 @@
         });
       },
       max() {
-        return this.activeLevel.statistics.maxgw;
+        return Number(this.activeLevel.statistics.maxgw);
       },
       mean() {
-        return this.activeLevel.statistics.meangw;
+        return Number(this.activeLevel.statistics.meangw);
       },
       // measurements() {
       //   return this.activeLevel.statistics.nobs;
       // },
       min() {
-        return this.activeLevel.statistics.mingw;
+        return Number(this.activeLevel.statistics.mingw);
       },
       // xcoord () {
       //   return this.activeLevel.properties.xcoord;
