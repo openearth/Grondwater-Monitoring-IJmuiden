@@ -27,7 +27,7 @@
       :show="Boolean(toastMessage)"
       :message="toastMessage"
     />
-    <images-dialog :showDialog="showDialog" />
+    <images-dialog :showImagesDialog="showImagesDialog" />
   </v-app>
 </template>
 
