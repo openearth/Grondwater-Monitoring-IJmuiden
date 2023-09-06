@@ -17,7 +17,6 @@
       <v-spacer />
     </v-app-bar>
     <v-main>
-      <map-dialog> </map-dialog>
       <section>
         <v-parallax src="@/assets/img/header.jpg" height="400" />
       </section>
@@ -76,16 +75,12 @@
 <script>
   import { mapActions } from 'vuex';
   import image from '@/assets/img/figure_landing_text.png';
-  import MapDialog from '@/components/map-dialog/map-dialog.vue';
 
   export default {
     data() {
       return {
         image: image,
       };
-    },
-    components: {
-      MapDialog,
     },
     computed: {
       currentYear() {

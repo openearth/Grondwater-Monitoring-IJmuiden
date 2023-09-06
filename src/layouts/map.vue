@@ -20,6 +20,13 @@
       <app-map />
       <app-panel />
     </v-main>
+
+    <welcome-dialog />
+
+    <toast-message
+      :show="Boolean(toastMessage)"
+      :message="toastMessage"
+    />
     <map-dialog :showDialog="showDialog" />
   </v-app>
 </template>
@@ -39,7 +46,7 @@
       AppPanel,
       ToastMessage,
       WelcomeDialog,
-      MapDialog
+      MapDialog,
     },
     computed: {
       ...mapGetters('app', [ 'toastMessage' ]),
