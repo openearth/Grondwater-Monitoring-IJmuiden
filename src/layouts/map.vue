@@ -27,7 +27,7 @@
       :show="Boolean(toastMessage)"
       :message="toastMessage"
     />
-    <map-dialog :showDialog="showDialog" />
+    <images-dialog :showDialog="showDialog" />
   </v-app>
 </template>
 
@@ -38,7 +38,7 @@
   import AppPanel from '@/components/app-panel/app-panel';
   import ToastMessage from '@/components/toast-message/toast-message';
   import WelcomeDialog from '@/components/welcome-dialog/welcome-dialog';
-  import MapDialog from '@/components/map-dialog/map-dialog.vue';
+  import ImagesDialog from '@/components/images-dialog/images-dialog.vue';
 
   export default {
     components: {
@@ -46,7 +46,7 @@
       AppPanel,
       ToastMessage,
       WelcomeDialog,
-      MapDialog,
+      ImagesDialog,
     },
     computed: {
       ...mapGetters('app', [ 'toastMessage' ]),
