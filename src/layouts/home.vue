@@ -28,7 +28,7 @@
               md="10"
               xl="6"
             >
-              <h1 class="text-h4 mb-6">Grondwater Monitoring IJmuiden</h1>
+              <h1 class="text-h4 mb-6">Grondwatermonitoring sluizencomplex IJmuiden</h1>
                 <div style="text-align:justify">
                   <p class="text-body-1">Welkom bij de webviewer voor grondwatermonitoring rondom het IJmuiden sluizencomplex, uitgevoerd door Deltares in opdracht van Rijkswaterstaat. Deze webviewer biedt inzicht in de monitoringsresultaten van het project en helpt bij het volgen van de verzilting in de komende jaren.
                     <br>
