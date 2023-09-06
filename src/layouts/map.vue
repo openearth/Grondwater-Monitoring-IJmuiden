@@ -11,7 +11,7 @@
           :to="{ name: 'home' }"
           class="white--text text-decoration-none"
         >
-          Grondwater Monitoring IJmuiden
+          Grondwatermonitoring sluizencomplex IJmuiden
         </router-link>
       </v-toolbar-title>
     </v-app-bar>

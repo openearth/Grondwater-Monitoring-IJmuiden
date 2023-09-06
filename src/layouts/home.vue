@@ -11,7 +11,7 @@
           :to="{ name: 'home' }"
           class="white--text text-decoration-none"
         >
-          Grondwater Monitoring IJmuiden
+          Grondwatermonitoring sluizencomplex IJmuiden
         </router-link>
       </v-toolbar-title>
       <v-spacer />
@@ -29,11 +29,16 @@
               xl="6"
             >
               <h1 class="text-h4 mb-6">Grondwater Monitoring IJmuiden</h1>
-              <p class="text-body-1">Welkom bij de webviewer voor grondwatermonitoring rondom het IJmuiden sluizencomplex, uitgevoerd door Deltares in opdracht van Rijkswaterstaat. Deze webviewer biedt inzicht in de monitoringsresultaten van het project en helpt bij het volgen van de verzilting in de komende jaren.
-                <br>Bij de aanleg van de Zeesluis IJmuiden en SO-IJ wordt de bodem van het Noordzeekanaal verdiept, waarbij een weerstandbiedende kleilaag wordt vergraven. Dit kan mogelijk leiden tot contact tussen zout zeewater en het zoete of brakke grondwater in het onderliggende watervoerende pakket. Hoewel de verzilting waarschijnlijk beperkt zal blijven tot binnen de kanaaloevers, willen we door middel van monitoring eventuele verzilting vroegtijdig constateren en volgen.
-                <br>De webviewer toont de monitoringsresultaten, waarbij er onderscheid wordt gemaakt tussen het Freatische pakket, het 1e watervoerende pakket (gescheiden door een kleilaag op ca. 17 m-NAP) en het 2e watervoerende pakket onder de Eemklei op ca. 40 m-NAP. Het 1e watervoerende pakket bevat momenteel zoet tot brak water, en de mogelijke verzilting van deze laag staat centraal in dit onderzoek.
-                <br>De webviewer biedt informatie over grondwaterstanden, geologie en waterkwaliteit. U kunt de gemeten grondwaterstanden per pakket bekijken, evenals boorgatmetingen en de resultaten van bemonstering en veldmetingen op elke meetlocatie.
-              </p>
+                <div style="text-align:justify">
+                  <p class="text-body-1">Welkom bij de webviewer voor grondwatermonitoring rondom het IJmuiden sluizencomplex, uitgevoerd door Deltares in opdracht van Rijkswaterstaat. Deze webviewer biedt inzicht in de monitoringsresultaten van het project en helpt bij het volgen van de verzilting in de komende jaren.
+                    <br>
+                    <br>Bij de aanleg van de Zeesluis IJmuiden en SO-IJ wordt de bodem van het Noordzeekanaal verdiept, waarbij een weerstandbiedende kleilaag wordt vergraven. Dit kan mogelijk leiden tot contact tussen zout zeewater en het zoete of brakke grondwater in het onderliggende watervoerende pakket. Hoewel de verzilting waarschijnlijk beperkt zal blijven tot binnen de kanaaloevers, willen we door middel van monitoring eventuele verzilting vroegtijdig constateren en volgen.
+                    <br>
+                    <br>De webviewer toont de monitoringsresultaten, waarbij er onderscheid wordt gemaakt tussen het Freatische pakket, het 1e watervoerende pakket (gescheiden door een kleilaag op ca. 17 m-NAP) en het 2e watervoerende pakket onder de Eemklei op ca. 40 m-NAP. Het 1e watervoerende pakket bevat momenteel zoet tot brak water, en de mogelijke verzilting van deze laag staat centraal in dit onderzoek.
+                    <br>
+                    <br>De webviewer biedt informatie over grondwaterstanden, geologie en waterkwaliteit. U kunt de gemeten grondwaterstanden per pakket bekijken, evenals boorgatmetingen en de resultaten van bemonstering en veldmetingen op elke meetlocatie.
+                  </p>
+                </div>
               <v-btn
                 class="custom-btn"
                 :to="{ name: 'map' }"
