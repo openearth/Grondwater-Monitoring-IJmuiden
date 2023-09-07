@@ -15,16 +15,12 @@
         </router-link>
       </v-toolbar-title>
 
-      <v-spacer />
-
       <v-tabs
       right
       style="width: auto"
       class="mr-15">
-        <v-tab @click="toggleDropdown">
-          Home page
-        </v-tab>
         <v-menu
+        style="align:center"
         v-model="menuOpen"
         :close-on-content-click="false"
         offset-y>
@@ -34,8 +30,9 @@
             </v-tab>
           </template>
           <v-list>
-            <v-list-item @click="menuItemClicked('Item 1')"> Kaarten en figuren</v-list-item>
-            <v-list-item @click="menuItemClicked('Item 2')">Rapportages</v-list-item>
+            <v-list-item @click="openDialog"> Kaarten en figuren</v-list-item>
+            <images-dialog v-if="showImagesDialog" />
+            <v-list-item @click="openReport">Rapportages</v-list-item>
           </v-list>
         </v-menu>
       </v-tabs>
@@ -53,12 +50,11 @@
       :show="Boolean(toastMessage)"
       :message="toastMessage"
     />
-    <images-dialog :showImagesDialog="showImagesDialog" />
   </v-app>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapGetters,  mapMutations } from 'vuex';
 
   import AppMap from '@/components/app-map/app-map';
   import AppPanel from '@/components/app-panel/app-panel';
@@ -75,7 +71,8 @@
       ImagesDialog,
     },
     computed: {
-      ...mapGetters('app', [ 'toastMessage' ]),
+      ...mapGetters('app', [ 'toastMessage', 'showImagesDialog' ]),
+
     },
     data() {
       return {
@@ -83,19 +80,15 @@
       };
     },
     methods: {
-      toggleDropdown() {
-        this.menuOpen = !this.menuOpen;
+      ...mapMutations({
+        openImagesDialog: 'app/OPEN_IMAGE_DIALOG',
+      }),
+      openDialog() {
+        this.openImagesDialog();
       },
-      menuItemClicked(item) {
-        console.log(`Clicked: ${ item }`);
+      openReport() {
+        window.open('https://grondwater-ijmuiden.openearth.nl/static/reports/11207510-000-BGS-0002_v0.1-Monitoring verzilting grondwaterwater SO-IJ & Zeesluis IJmuiden _incl_bijlage - 11-2022.pdf', '_blank');
       },
     },
   };
 </script>
-
-<style scoped>
-/* Custom CSS to style the tab as a clickable element */
-.v-tabs .v-tab {
-  cursor: pointer;
-}
-</style>
