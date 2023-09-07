@@ -18,9 +18,8 @@
       <v-tabs
       right
       style="width: auto"
-      class="mr-15">
+      class="d-flex justify-end mr-15">
         <v-menu
-        style="align:center"
         v-model="menuOpen"
         :close-on-content-click="false"
         offset-y>
