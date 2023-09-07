@@ -10,13 +10,16 @@ export default {
 
   state: {
     termsAndConditionsAccepted: false,
+    showImagesDialog: false,
     ...initialState(),
+    
   },
 
   getters: {
     panelIsCollapsed: state => state.panelIsCollapsed,
     toastMessage: state => state.toastMessage,
     termsAndConditionsAccepted: state => state.termsAndConditionsAccepted,
+    showImagesDialog: state => state.showImagesDialog,
   },
 
   mutations: {
@@ -34,6 +37,12 @@ export default {
     },
     SET_TOAST_MESSAGE(state, { type, text }) {
       state.toastMessage = { type, text };
+    },
+    OPEN_IMAGE_DIALOG(state) {
+      state.showImagesDialog = true;
+    },
+    HIDE_IMAGE_DIALOG(state) {
+      state.showImagesDialog = false;
     },
   },
 
