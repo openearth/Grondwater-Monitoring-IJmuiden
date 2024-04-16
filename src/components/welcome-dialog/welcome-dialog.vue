@@ -9,12 +9,14 @@
         Grondwater Monitoring IJmuiden
       </v-card-title>
       <div class="welcome-dialog__images">
+        <a href="https://openearth.nl" target="_blank">
         <img
           src="@/assets/img/OE_logo.png"
           alt="OE logo"
         >
+      </a>
         <img
-          src="@/assets/img/logo-m-2x.png"
+          src="@/assets/img/Deltares_logo_D-blauw_RGB.png"
           alt="Deltares logo"
         >
       </div>
