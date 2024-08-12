@@ -57,7 +57,7 @@
       <v-tab-item style="margin: 10px">
         <h3 class="text-h6">
           Waterkwaliteit van meetlocatie {{loc_id}} <br>
-          <div class="location-details__images" v-if="images.length">
+          <div class="location-details__images" v-if="tables.length">
             <a
               v-for="table in tables"
               :key="table"
